@@ -1,6 +1,7 @@
 package com.andjelkadzida.chatsome.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.andjelkadzida.chatsome.MessageActivity;
 import com.andjelkadzida.chatsome.R;
 import com.andjelkadzida.chatsome.model.User;
 import com.bumptech.glide.Glide;
@@ -57,6 +59,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
                     .load(user.getImageUrl())
                     .into(holder.imageView);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(context, MessageActivity.class);
+                intent.putExtra("userid", user.getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
