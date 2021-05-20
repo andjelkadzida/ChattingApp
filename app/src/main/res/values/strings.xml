@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Chatsome</string>
+
+    <!--Activity_Registration-->
+    <string name="register">Registration</string>
+    <string name="hintUsername">Username</string>
+    <string name="hintPassword">Password</string>
+    <string name="hintEmail">E-mail</string>
+    <!--Activity_Login-->
+    <string name="login">Login</string>
+    <string name="notMember">Not member? Register now!</string>
+</resources>

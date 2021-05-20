@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "229414900847",
+    "project_id": "chatapp-58388",
+    "storage_bucket": "chatapp-58388.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229414900847:android:0477b96ff9577f1696699a",
+        "android_client_info": {
+          "package_name": "com.andjelkadzida.chatsome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "229414900847-fv5hlta7tcb32sd9b6o2rq4b66461bsr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU2z9sgb6QiJE8iGSGLNWBdBlbWvFICno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "229414900847-fv5hlta7tcb32sd9b6o2rq4b66461bsr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
