@@ -9,4 +9,7 @@
     <!--Activity_Login-->
     <string name="login">Login</string>
     <string name="notMember">Not member? Register now!</string>
+
+    <!--Menu-->
+    <string name="logout">Logout</string>
 </resources>

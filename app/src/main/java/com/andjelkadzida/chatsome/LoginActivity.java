@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,11 +24,29 @@ public class LoginActivity extends AppCompatActivity
 
     //Widgeti
     EditText emailText, passText;
-    Button loginBtn;
+    Button loginBtn, registerBtn;
 
     //Firebase
     FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
 
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        //Uzimanje trenutnog korisnika i njegovo cuvanje ulogovanog u aplikaciji
+        firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+
+        //Proveravam da li korisnik postoji. Cuvanje trenutnog korisnika ulogovanog
+        if(firebaseUser != null)
+        {
+            //Ako korisnik postoji, kreiram instancu klase Intent
+            // Iz login aktivnosti pokrecem main activity i vracam korisnika na glavnu stranicu
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,9 +58,23 @@ public class LoginActivity extends AppCompatActivity
         emailText = findViewById(R.id.emailLogin);
         passText = findViewById(R.id.password);
         loginBtn = findViewById(R.id.loginButton);
+        registerBtn = findViewById(R.id.notMember);
 
         //Firebase autentifikacija
         firebaseAuth = FirebaseAuth.getInstance();
+
+
+        //Registracija iz login aktivnosti. Korisnim dogadjaj onClickListener
+        registerBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //Kreiram instancu klase intent i prosledjujem korisnika na register aktivnost
+                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Logovanje sam odradila tako sto sam na dugme stavila onClickListener
         loginBtn.setOnClickListener(new View.OnClickListener()
