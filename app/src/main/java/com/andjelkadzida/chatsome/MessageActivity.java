@@ -3,6 +3,7 @@ package com.andjelkadzida.chatsome;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.andjelkadzida.chatsome.adapter.MessageAdapter;
+import com.andjelkadzida.chatsome.model.Chat;
 import com.andjelkadzida.chatsome.model.User;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MessageActivity extends AppCompatActivity
 {
@@ -46,6 +51,10 @@ public class MessageActivity extends AppCompatActivity
     DatabaseReference reference;
     Intent intent;
 
+    MessageAdapter messageAdapter;
+    List<Chat> chats;
+
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,20 +68,15 @@ public class MessageActivity extends AppCompatActivity
         messageText = findViewById(R.id.textSend);
         btnSend = findViewById(R.id.btnSend);
 
+        //RecycleViewer
+        recyclerView = findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
 
-        //Toolbar
-      /*  Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                finish();
-            }
-        });*/
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+
 
 
         intent = getIntent();
@@ -85,7 +89,7 @@ public class MessageActivity extends AppCompatActivity
         reference.addValueEventListener(new ValueEventListener()
         {
             @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot)
+            public void onDataChange(@NonNull DataSnapshot snapshot)
             {
                 User user = snapshot.getValue(User.class);
                 username.setText(user.getUsername());
@@ -98,6 +102,8 @@ public class MessageActivity extends AppCompatActivity
                 {
                     Glide.with(MessageActivity.this).load(user.getImageUrl()).into(userImage);
                 }
+
+                readMessage(firebaseUser.getUid(), userId, user.getImageUrl());
             }
 
             @Override
@@ -146,8 +152,38 @@ public class MessageActivity extends AppCompatActivity
         ref.child("Chats").push().setValue(map);
     }
 
-
-    private void setSupportActionBar(Toolbar toolbar)
+    private void readMessage(String myId, String userId, String imageUrl)
     {
+        chats = new ArrayList<>();
+
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        reference.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                chats.clear();
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    Chat chat = snapshot.getValue(Chat.class);
+
+                    if(chat.getReceiver().equals(myId) && chat.getSender().equals(userId) || chat.getReceiver().equals(userId) && chat.getSender().equals(myId))
+                    {
+                        chats.add(chat);
+                    }
+                    messageAdapter = new MessageAdapter(MessageActivity.this, chats, imageUrl);
+                    recyclerView.setAdapter(messageAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
     }
+
+
 }

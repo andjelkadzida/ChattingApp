@@ -100,13 +100,13 @@ public class RegistrationActivity extends AppCompatActivity
                             databaseReference.setValue(usersMap).addOnCompleteListener(new OnCompleteListener<Void>()
                             {
                                 @Override
-                                public void onComplete(@NonNull @NotNull Task<Void> task)
+                                public void onComplete(@NonNull Task<Void> task)
                                 {
                                    if(task.isSuccessful())
                                    {
                                        //Pokretanje glavne aktivnosti koriscenjem Intenta
                                        //Kreiramo instancu klase intent
-                                       Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                                       Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                                        //Metodi startActivity prosledjujemo instancu klase Intent koju smo kreirali
                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                        startActivity(intent);

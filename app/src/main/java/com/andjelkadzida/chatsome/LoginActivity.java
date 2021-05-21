@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity
 
         //Inicijalizacija widgeta
         emailText = findViewById(R.id.emailLogin);
-        passText = findViewById(R.id.password);
+        passText = findViewById(R.id.passwordLogin);
         loginBtn = findViewById(R.id.loginButton);
         registerBtn = findViewById(R.id.notMember);
 

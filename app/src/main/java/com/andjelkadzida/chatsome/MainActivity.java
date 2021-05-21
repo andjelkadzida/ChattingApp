@@ -43,20 +43,27 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //Iz firebase baze podataka uzimam trenutno ulogovanog korisnika i smestam ga u currentUser
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(currentUser==null)
+        {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
         reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
 
         reference.addValueEventListener(new ValueEventListener()
         {
             @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot)
+            public void onDataChange(@NonNull DataSnapshot snapshot)
             {
                 User user = snapshot.getValue(User.class);
             }
 
             @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error)
+            public void onCancelled(@NonNull DatabaseError error)
             {
 
             }
