@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>()
                             {
                                 @Override
-                                public void onComplete(@NonNull @NotNull Task<AuthResult> task)
+                                public void onComplete(@NonNull Task<AuthResult> task)
                                 {
                                     //Proveravam da li je korisnik uspesno ulogovan.
                                     //Ako jeste, vracam ga na glavnu stranicu

@@ -63,7 +63,7 @@ public class UserFragment extends Fragment
         reference.addValueEventListener(new ValueEventListener()
         {
             @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot)
+            public void onDataChange(@NonNull DataSnapshot snapshot)
             {
                 users.clear();
 
@@ -72,6 +72,7 @@ public class UserFragment extends Fragment
                     User user = snapshot.getValue(User.class);
 
                     assert user != null;
+                    assert firebaseUser != null;
                     if(!user.getId().equals(firebaseUser.getUid()))
                     {
                         users.add(user);
@@ -83,7 +84,7 @@ public class UserFragment extends Fragment
             }
 
             @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error)
+            public void onCancelled(@NonNull DatabaseError error)
             {
 
             }

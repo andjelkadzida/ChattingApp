@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.andjelkadzida.chatsome.adapter.MessageAdapter;
 import com.andjelkadzida.chatsome.model.Chat;
@@ -54,6 +53,8 @@ public class MessageActivity extends AppCompatActivity
     MessageAdapter messageAdapter;
     List<Chat> chats;
 
+    String userId;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -80,7 +81,7 @@ public class MessageActivity extends AppCompatActivity
 
 
         intent = getIntent();
-        String userId = intent.getStringExtra("userid");
+        userId = intent.getStringExtra("userid");
 
         //Uzimanje treuntog korisnika
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -92,6 +93,7 @@ public class MessageActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
                 User user = snapshot.getValue(User.class);
+                assert user != null;
                 username.setText(user.getUsername());
 
                 if(user.getImageUrl().equals("default"))
@@ -150,6 +152,35 @@ public class MessageActivity extends AppCompatActivity
         map.put("message", message);
 
         ref.child("Chats").push().setValue(map);
+
+        //Dodavanje korisnika u Chat fragment: Poslednji chat sa  kontaktima
+
+        final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("ChatList")
+                .child(firebaseUser.getUid())
+                .child(userId);
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                if(!snapshot.exists())
+                {
+                    chatRef.child("id").setValue(userId);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
+
+
+
+
+
     }
 
     private void readMessage(String myId, String userId, String imageUrl)

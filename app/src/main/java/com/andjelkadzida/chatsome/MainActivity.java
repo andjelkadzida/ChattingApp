@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         @NonNull
-        @NotNull
         @Override
         public Fragment getItem(int position)
         {
