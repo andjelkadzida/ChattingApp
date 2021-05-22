@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.andjelkadzida.chatsome.adapter.MessageAdapter;
 import com.andjelkadzida.chatsome.model.Chat;
-import com.andjelkadzida.chatsome.model.User;
+import com.andjelkadzida.chatsome.model.Users;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -92,7 +92,7 @@ public class MessageActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
-                User user = snapshot.getValue(User.class);
+                Users user = snapshot.getValue(Users.class);
                 assert user != null;
                 username.setText(user.getUsername());
 

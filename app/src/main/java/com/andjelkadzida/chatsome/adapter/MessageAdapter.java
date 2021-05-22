@@ -1,7 +1,6 @@
 package com.andjelkadzida.chatsome.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.andjelkadzida.chatsome.MessageActivity;
 import com.andjelkadzida.chatsome.R;
 import com.andjelkadzida.chatsome.model.Chat;
-import com.andjelkadzida.chatsome.model.User;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -80,6 +76,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         {
             Glide.with(context).load(imageUrl).into(holder.imageView);
         }
+
     }
 
     @Override

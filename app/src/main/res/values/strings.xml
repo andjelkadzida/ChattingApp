@@ -21,4 +21,7 @@
 
     <!--Chat item left-->
     <string name="hello">Hello</string>
+
+    <!--User item-->
+    <string name="photo">User photo</string>
 </resources>

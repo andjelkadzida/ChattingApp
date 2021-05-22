@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.andjelkadzida.chatsome.R;
 import com.andjelkadzida.chatsome.adapter.UserAdapter;
-import com.andjelkadzida.chatsome.model.User;
+import com.andjelkadzida.chatsome.model.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class UserFragment extends Fragment
 {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
-    private List<User> users;
+    private List<Users> users;
 
 
     public UserFragment()
@@ -46,7 +45,7 @@ public class UserFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.userRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -58,6 +57,7 @@ public class UserFragment extends Fragment
     private void readUsers()
     {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert firebaseUser != null;
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
 
         reference.addValueEventListener(new ValueEventListener()
@@ -69,13 +69,12 @@ public class UserFragment extends Fragment
 
                 for(DataSnapshot dataSnapshot: snapshot.getChildren())
                 {
-                    User user = snapshot.getValue(User.class);
+                    Users user = snapshot.getValue(Users.class);
 
-                    assert user != null;
-                    assert firebaseUser != null;
-                    if(!user.getId().equals(firebaseUser.getUid()))
+                    if(user!=null && user.getId() != null && !user.getId().equals(firebaseUser.getUid()))
                     {
-                        users.add(user);
+                         users.add(user);
+                         userAdapter.notifyDataSetChanged();
                     }
 
                     userAdapter = new UserAdapter(getContext(), users);

@@ -13,22 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andjelkadzida.chatsome.MessageActivity;
 import com.andjelkadzida.chatsome.R;
-import com.andjelkadzida.chatsome.model.User;
+import com.andjelkadzida.chatsome.model.Users;
 import com.bumptech.glide.Glide;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
 {
     private Context context;
-    private List<User> users;
+    private List<Users> users;
 
     //Konstruktor
 
 
-    public UserAdapter(Context context, List<User> users)
+    public UserAdapter(Context context, List<Users> users)
     {
         this.context = context;
         this.users = users;
@@ -46,7 +45,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        User user = users.get(position);
+        Users user = users.get(position);
         holder.usersNameView.setText(user.getUsername());
 
         if (user.getImageUrl().equals("default"))

@@ -12,11 +12,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.andjelkadzida.chatsome.fragments.ChatsFragment;
 import com.andjelkadzida.chatsome.fragments.UserFragment;
-import com.andjelkadzida.chatsome.model.User;
+import com.andjelkadzida.chatsome.model.Users;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,9 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -47,11 +45,7 @@ public class MainActivity extends AppCompatActivity
         //Iz firebase baze podataka uzimam trenutno ulogovanog korisnika i smestam ga u currentUser
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(currentUser==null)
-        {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
+
         reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
 
         reference.addValueEventListener(new ValueEventListener()
@@ -59,7 +53,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
-                User user = snapshot.getValue(User.class);
+                Users user = snapshot.getValue(Users.class);
             }
 
             @Override
@@ -104,8 +98,7 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
         }
         return false;
@@ -149,5 +142,30 @@ public class MainActivity extends AppCompatActivity
         {
             return titles.get(position);
         }
+    }
+
+    //Provera da li je korisnik online
+    private void checkOnlineStatus(String status)
+    {
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        checkOnlineStatus("Online");
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        checkOnlineStatus("Offline");
     }
 }

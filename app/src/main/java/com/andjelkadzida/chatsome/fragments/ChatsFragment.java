@@ -13,9 +13,8 @@ import android.view.ViewGroup;
 
 import com.andjelkadzida.chatsome.R;
 import com.andjelkadzida.chatsome.adapter.UserAdapter;
-import com.andjelkadzida.chatsome.model.Chat;
 import com.andjelkadzida.chatsome.model.ChatList;
-import com.andjelkadzida.chatsome.model.User;
+import com.andjelkadzida.chatsome.model.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,7 @@ public class ChatsFragment extends Fragment
 {
 
     private UserAdapter userAdapter;
-    private List<User> users;
+    private List<Users> users;
 
     //Firebase
     FirebaseUser firebaseUser;
@@ -98,7 +96,7 @@ public class ChatsFragment extends Fragment
 
                 for(DataSnapshot dataSnapshot:snapshot.getChildren())
                 {
-                    User user = snapshot.getValue(User.class);
+                    Users user = snapshot.getValue(Users.class);
 
                     for(ChatList chatList:usersList)
                     {

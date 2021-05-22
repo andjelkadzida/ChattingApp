@@ -1,20 +1,22 @@
 package com.andjelkadzida.chatsome.model;
 
-public class User
+public class Users
 {
     private String id;
     private String username;
     private String imageUrl;
+    private String status;
 
     //Konstruktori
-    public User(String id, String username, String imageUrl)
+    public Users(String id, String username, String imageUrl, String status)
     {
         this.id = id;
         this.username = username;
         this.imageUrl = imageUrl;
+        this.status = status;
     }
 
-    public User()
+    public Users()
     {
     }
 
@@ -48,4 +50,15 @@ public class User
     {
         this.imageUrl = imageUrl;
     }
+
+    public String getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
+
 }
