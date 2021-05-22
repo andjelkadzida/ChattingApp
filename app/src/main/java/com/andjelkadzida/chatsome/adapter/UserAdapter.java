@@ -23,14 +23,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
 {
     private Context context;
     private List<Users> users;
+    private boolean isChat;
 
     //Konstruktor
 
-
-    public UserAdapter(Context context, List<Users> users)
+    public UserAdapter(Context context, List<Users> users, boolean isChat)
     {
         this.context = context;
         this.users = users;
+        this.isChat = isChat;
     }
 
 
@@ -58,6 +59,26 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
                     .into(holder.imageView);
         }
 
+        //Check status
+        if(isChat)
+        {
+            if(user.getStatus().equals("Online"))
+            {
+                holder.onlineView.setVisibility(View.VISIBLE);
+                holder.offlineView.setVisibility(View.GONE);
+            }
+            else
+            {
+                holder.onlineView.setVisibility(View.GONE);
+                holder.offlineView.setVisibility(View.VISIBLE);
+            }
+        }
+        else
+        {
+            holder.onlineView.setVisibility(View.GONE);
+            holder.offlineView.setVisibility(View.GONE);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -79,7 +100,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         public TextView usersNameView;
-        public ImageView imageView;
+        public ImageView imageView, onlineView, offlineView;
 
         public ViewHolder(@NonNull View itemView)
         {
@@ -87,6 +108,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
 
             usersNameView = itemView.findViewById(R.id.allUsersNameView);
             imageView = itemView.findViewById(R.id.userImageView);
+            onlineView = itemView.findViewById(R.id.onlineView);
+            offlineView = itemView.findViewById(R.id.offlineView);
         }
     }
 

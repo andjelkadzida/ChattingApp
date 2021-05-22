@@ -53,7 +53,10 @@ public class MessageActivity extends AppCompatActivity
     MessageAdapter messageAdapter;
     List<Chat> chats;
 
+    RecyclerView viewRecycle;
     String userId;
+
+    ValueEventListener seenListener;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -76,8 +79,6 @@ public class MessageActivity extends AppCompatActivity
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-
 
 
         intent = getIntent();
@@ -138,8 +139,7 @@ public class MessageActivity extends AppCompatActivity
                 messageText.setText("");
             }
         });
-
-
+            messageSeen(userId);
     }
 
     private void sendMessage(String sender, String receiver, String message)
@@ -150,6 +150,7 @@ public class MessageActivity extends AppCompatActivity
         map.put("sender", sender);
         map.put("receiver", receiver);
         map.put("message", message);
+        map.put("isseen", false);
 
         ref.child("Chats").push().setValue(map);
 
@@ -176,11 +177,6 @@ public class MessageActivity extends AppCompatActivity
 
             }
         });
-
-
-
-
-
     }
 
     private void readMessage(String myId, String userId, String imageUrl)
@@ -199,9 +195,11 @@ public class MessageActivity extends AppCompatActivity
                 {
                     Chat chat = snapshot.getValue(Chat.class);
 
+                    assert chat != null;
                     if(chat.getReceiver().equals(myId) && chat.getSender().equals(userId) || chat.getReceiver().equals(userId) && chat.getSender().equals(myId))
                     {
                         chats.add(chat);
+                        messageAdapter.notifyDataSetChanged();
                     }
                     messageAdapter = new MessageAdapter(MessageActivity.this, chats, imageUrl);
                     recyclerView.setAdapter(messageAdapter);
@@ -216,5 +214,63 @@ public class MessageActivity extends AppCompatActivity
         });
     }
 
+    //Metoda koja proverava da li je korisnik procitao poruku
+    private void  messageSeen(final String userId)
+    {
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        seenListener = reference.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    Chat chat = snapshot.getValue(Chat.class);
+
+                    assert chat != null;
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId))
+                    {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("isseen", true);
+                        snapshot.getRef().updateChildren(map);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error)
+            {
+
+            }
+        });
+
+    }
+
+    //Provera statusa poruke
+    private void statusCheck(String status)
+    {
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        statusCheck("Online");
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        reference.removeEventListener(seenListener);
+        statusCheck("Offline");
+    }
 
 }

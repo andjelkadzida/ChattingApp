@@ -77,7 +77,7 @@ public class UserFragment extends Fragment
                          userAdapter.notifyDataSetChanged();
                     }
 
-                    userAdapter = new UserAdapter(getContext(), users);
+                    userAdapter = new UserAdapter(getContext(), users, false);
                     recyclerView.setAdapter(userAdapter);
                 }
             }

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.andjelkadzida.chatsome.fragments.ChatsFragment;
+import com.andjelkadzida.chatsome.fragments.ProfileFragment;
 import com.andjelkadzida.chatsome.fragments.UserFragment;
 import com.andjelkadzida.chatsome.model.Users;
 import com.google.android.material.tabs.TabLayout;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity
 
         viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
         viewPagerAdapter.addFragment(new UserFragment(), "Users");
+        viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
 
         viewPager.setAdapter(viewPagerAdapter);
 
