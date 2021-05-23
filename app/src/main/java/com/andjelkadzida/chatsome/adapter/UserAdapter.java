@@ -21,9 +21,9 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
 {
-    private Context context;
-    private List<Users> users;
-    private boolean isChat;
+    private final Context context;
+    private final List<Users> users;
+    private final boolean isChat;
 
     //Konstruktor
 

@@ -22,9 +22,9 @@ import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder>
 {
-    private Context context;
-    private List<Chat> chats;
-    private String imageUrl;
+    private final Context context;
+    private final List<Chat> chats;
+    private final String imageUrl;
 
     //Firebase
     FirebaseUser firebaseUser;

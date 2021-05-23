@@ -149,7 +149,7 @@ public class MessageActivity extends AppCompatActivity
         map.put("sender", sender);
         map.put("receiver", receiver);
         map.put("message", message);
-        map.put("isseen", false);
+        map.put("statusSeen", false);
 
         ref.child("Chats").push().setValue(map);
 
@@ -228,8 +228,8 @@ public class MessageActivity extends AppCompatActivity
                     if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid))
                     {
                         HashMap<String, Object> map = new HashMap<>();
-                        map.put("isseen", true);
-                        snapshot.getRef().updateChildren(map);
+                        map.put("statusSeen", true);
+                        dataSnapshot.getRef().updateChildren(map);
                     }
                 }
             }

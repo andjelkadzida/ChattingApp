@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity
 
     //Klasa ViewPagerAdapter
     class ViewPagerAdapter extends FragmentPagerAdapter {
-        private ArrayList<Fragment> fragments;
-        private ArrayList<String> titles;
+        private final ArrayList<Fragment> fragments;
+        private final ArrayList<String> titles;
 
         ViewPagerAdapter(FragmentManager fragmentManager)
         {
