@@ -95,6 +95,7 @@ public class RegistrationActivity extends AppCompatActivity
                             usersMap.put("id", userId);
                             usersMap.put("username", username);
                             usersMap.put("imageUrl", "default");
+                            usersMap.put("status", "offline");
 
                             //Pokretanje glavne aktivnosti nakon uspesne registracije
                             databaseReference.setValue(usersMap).addOnCompleteListener(new OnCompleteListener<Void>()

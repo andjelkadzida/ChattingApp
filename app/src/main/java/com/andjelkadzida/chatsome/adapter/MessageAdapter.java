@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder>
@@ -77,6 +79,22 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             Glide.with(context).load(imageUrl).into(holder.imageView);
         }
 
+        if(position == chats.size()-1)
+        {
+            if(chat.seen)
+            {
+                holder.seenViewer.setText("Seen");
+            }
+            else
+            {
+                holder.seenViewer.setText("Delivered");
+            }
+        }
+        else
+        {
+            holder.seenViewer.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -89,6 +107,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     {
         public TextView showMessage;
         public ImageView imageView;
+        public TextView seenViewer;
 
         public ViewHolder(View itemView)
         {
@@ -96,6 +115,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
             showMessage = itemView.findViewById(R.id.showMessage);
             imageView = itemView.findViewById(R.id.profilePicture);
+            seenViewer = itemView.findViewById(R.id.statusSeen);
         }
     }
 
