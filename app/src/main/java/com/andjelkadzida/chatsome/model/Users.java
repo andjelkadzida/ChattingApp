@@ -61,4 +61,14 @@ public class Users
         this.status = status;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Users{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

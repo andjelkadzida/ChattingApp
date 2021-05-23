@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
     
     <RelativeLayout
+        android:id="@+id/relativo"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -29,5 +30,16 @@
             android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
+    <TextView
+        android:id="@+id/statusSeenView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativo"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:text="TextView"/>
 
 </RelativeLayout>

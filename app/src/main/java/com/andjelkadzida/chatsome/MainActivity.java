@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity
 
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
-
         reference.addValueEventListener(new ValueEventListener()
         {
             @Override

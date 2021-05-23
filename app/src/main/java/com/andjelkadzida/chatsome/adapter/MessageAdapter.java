@@ -81,7 +81,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         if(position == chats.size()-1)
         {
-            if(chat.seen)
+            if(chat.isStatusSeen())
             {
                 holder.seenViewer.setText("Seen");
             }
@@ -115,7 +115,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
             showMessage = itemView.findViewById(R.id.showMessage);
             imageView = itemView.findViewById(R.id.profilePicture);
-            seenViewer = itemView.findViewById(R.id.statusSeen);
+            seenViewer = itemView.findViewById(R.id.statusSeenView);
         }
     }
 

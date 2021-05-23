@@ -81,6 +81,8 @@ public class ProfileFragment extends Fragment
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
                 Users users = snapshot.getValue(Users.class);
+                assert users != null;
+                assert users.getImageUrl() != null;
                 username.setText(users.getUsername());
 
                 if(users.getImageUrl().equals("default"))
