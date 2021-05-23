@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/profilePicture"
-        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/profilePicture"
         android:padding="8dp"
         android:background="@drawable/backgroud_left"
         android:text="@string/hello"/>

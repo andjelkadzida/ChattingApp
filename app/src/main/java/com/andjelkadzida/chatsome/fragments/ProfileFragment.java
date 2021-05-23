@@ -196,7 +196,7 @@ public class ProfileFragment extends Fragment
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == PICTURE_REQ && resultCode == RESULT_OK && data != null && data.getData() !=null)
+        if(requestCode == PICTURE_REQ && resultCode == RESULT_OK && data != null && data.getData() !=null)
         {
             pictureUri = data.getData();
             if(uploadPicture != null && uploadPicture.isInProgress())

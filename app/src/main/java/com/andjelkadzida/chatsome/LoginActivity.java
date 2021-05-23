@@ -17,7 +17,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.jetbrains.annotations.NotNull;
 
 public class LoginActivity extends AppCompatActivity
 {
@@ -35,7 +34,7 @@ public class LoginActivity extends AppCompatActivity
     {
         super.onStart();
         //Uzimanje trenutnog korisnika i njegovo cuvanje ulogovanog u aplikaciji
-        firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         //Proveravam da li korisnik postoji. Cuvanje trenutnog korisnika ulogovanog
         if(firebaseUser != null)

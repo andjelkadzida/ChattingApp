@@ -94,7 +94,6 @@ public class MessageActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
                 Users user = snapshot.getValue(Users.class);
-                assert user != null;
                 username.setText(user.getUsername());
 
                 if(user.getImageUrl().equals("default"))
@@ -193,13 +192,11 @@ public class MessageActivity extends AppCompatActivity
                 chats.clear();
                 for(DataSnapshot dataSnapshot:snapshot.getChildren())
                 {
-                    Chat chat = snapshot.getValue(Chat.class);
+                    Chat chat = dataSnapshot.getValue(Chat.class);
 
-                    assert chat != null;
                     if(chat.getReceiver().equals(myId) && chat.getSender().equals(userId) || chat.getReceiver().equals(userId) && chat.getSender().equals(myId))
                     {
                         chats.add(chat);
-                        messageAdapter.notifyDataSetChanged();
                     }
                     messageAdapter = new MessageAdapter(MessageActivity.this, chats, imageUrl);
                     recyclerView.setAdapter(messageAdapter);
@@ -215,7 +212,7 @@ public class MessageActivity extends AppCompatActivity
     }
 
     //Metoda koja proverava da li je korisnik procitao poruku
-    private void  messageSeen(final String userId)
+    private void  messageSeen(final String userid)
     {
         reference = FirebaseDatabase.getInstance().getReference("Chats");
 
@@ -226,10 +223,9 @@ public class MessageActivity extends AppCompatActivity
             {
                 for(DataSnapshot dataSnapshot:snapshot.getChildren())
                 {
-                    Chat chat = snapshot.getValue(Chat.class);
+                    Chat chat = dataSnapshot.getValue(Chat.class);
 
-                    assert chat != null;
-                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId))
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid))
                     {
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("isseen", true);

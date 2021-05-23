@@ -66,7 +66,7 @@ public class ChatsFragment extends Fragment
 
                 for(DataSnapshot dataSnapshot: snapshot.getChildren())
                 {
-                    ChatList chatList = snapshot.getValue(ChatList.class);
+                    ChatList chatList = dataSnapshot.getValue(ChatList.class);
                     usersList.add(chatList);
                 }
 
@@ -96,7 +96,7 @@ public class ChatsFragment extends Fragment
 
                 for(DataSnapshot dataSnapshot:snapshot.getChildren())
                 {
-                    Users user = snapshot.getValue(Users.class);
+                    Users user = dataSnapshot.getValue(Users.class);
 
                     for(ChatList chatList:usersList)
                     {

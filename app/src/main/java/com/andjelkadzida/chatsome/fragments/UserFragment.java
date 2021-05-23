@@ -34,6 +34,7 @@ public class UserFragment extends Fragment
     private List<Users> users;
 
 
+
     public UserFragment()
     {
         // Required empty public constructor
@@ -69,7 +70,7 @@ public class UserFragment extends Fragment
 
                 for(DataSnapshot dataSnapshot: snapshot.getChildren())
                 {
-                    Users user = snapshot.getValue(Users.class);
+                    Users user = dataSnapshot.getValue(Users.class);
 
                     if(user!=null && user.getId() != null && !user.getId().equals(firebaseUser.getUid()))
                     {
@@ -85,7 +86,7 @@ public class UserFragment extends Fragment
             @Override
             public void onCancelled(@NonNull DatabaseError error)
             {
-
+                System.out.println("The read failed: " + error);
             }
         });
     }

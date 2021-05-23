@@ -3,17 +3,19 @@ package com.andjelkadzida.chatsome.model;
 public class Users
 {
     private String id;
-    private String username;
     private String imageUrl;
     private String status;
+    private String username;
+
+
 
     //Konstruktori
-    public Users(String id, String username, String imageUrl, String status)
+    public Users(String id, String imageUrl, String username, String status)
     {
         this.id = id;
-        this.username = username;
         this.imageUrl = imageUrl;
         this.status = status;
+        this.username = username;
     }
 
     public Users()
@@ -29,16 +31,6 @@ public class Users
     public void setId(String id)
     {
         this.id = id;
-    }
-
-    public String getUsername()
-    {
-        return username;
-    }
-
-    public void setUsername(String username)
-    {
-        this.username = username;
     }
 
     public String getImageUrl()
@@ -61,14 +53,24 @@ public class Users
         this.status = status;
     }
 
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+
     @Override
     public String toString()
     {
         return "Users{" +
                 "id='" + id + '\'' +
-                ", username='" + username + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", status='" + status + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }
