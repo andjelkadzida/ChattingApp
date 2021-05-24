@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity
 
     //Widgeti
     EditText emailText, passText;
-    Button loginBtn, registerBtn;
+    Button loginBtn, registerBtn, btnResetPassword;
 
     //Firebase
     FirebaseAuth firebaseAuth;
@@ -58,10 +58,21 @@ public class LoginActivity extends AppCompatActivity
         passText = findViewById(R.id.passwordLogin);
         loginBtn = findViewById(R.id.loginButton);
         registerBtn = findViewById(R.id.notMember);
+        btnResetPassword = findViewById(R.id.resetPass);
 
         //Firebase autentifikacija
         firebaseAuth = FirebaseAuth.getInstance();
 
+        //Pokretanje aktivnosti za resetovanje sifre iz login aktivnosti koriscenjem intenta i dogadjaja onClickListener
+        btnResetPassword.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Registracija iz login aktivnosti. Korisnim dogadjaj onClickListener
         registerBtn.setOnClickListener(new View.OnClickListener()

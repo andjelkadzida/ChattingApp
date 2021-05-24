@@ -9,6 +9,7 @@
     <!--Activity_Login-->
     <string name="login">Login</string>
     <string name="notMember">Not member? Register now!</string>
+    <string name="passResetNow">Fogot password? Reset now!</string>
 
     <!--Menu-->
     <string name="logout">Logout</string>
@@ -24,6 +25,11 @@
 
     <!--User item-->
     <string name="photo">User photo</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--ResetPasswordActivity-->
+    <string name="mailHint">Your email</string>
+    <string name="reset">Reset</string>
+    <string name="textView">By clicking reset, you will receive an email to reset your password.</string>
+    <string name="resetView">Reset your password</string>
 </resources>
