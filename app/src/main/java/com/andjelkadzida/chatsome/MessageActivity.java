@@ -54,7 +54,7 @@ public class MessageActivity extends AppCompatActivity
     List<Chat> chats;
 
     RecyclerView viewRecycle;
-    String userId;
+    String userid;
 
     ValueEventListener seenListener;
 
@@ -82,11 +82,11 @@ public class MessageActivity extends AppCompatActivity
 
 
         intent = getIntent();
-        userId = intent.getStringExtra("userid");
+        userid = intent.getStringExtra("userid");
 
         //Uzimanje treuntog korisnika
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener()
         {
@@ -105,7 +105,7 @@ public class MessageActivity extends AppCompatActivity
                     Glide.with(MessageActivity.this).load(user.getImageUrl()).into(userImage);
                 }
 
-                readMessage(firebaseUser.getUid(), userId, user.getImageUrl());
+                readMessage(firebaseUser.getUid(), userid, user.getImageUrl());
             }
 
             @Override
@@ -127,7 +127,7 @@ public class MessageActivity extends AppCompatActivity
                 //Ako TextEdit nije prazan, tj ako je korisnik uneo poruku, poziva se funkcija za slanje poruke
                 if(!message.equals(""))
                 {
-                    sendMessage(firebaseUser.getUid(), userId, message);
+                    sendMessage(firebaseUser.getUid(), userid, message);
                 }
                 //Ako korisnik nije uneo poruku, a klikne na dugme za slanje poruke, dobija obavestenje da je potrebno da unese poruku
                 else
@@ -138,7 +138,38 @@ public class MessageActivity extends AppCompatActivity
                 messageText.setText("");
             }
         });
-            messageSeen(userId);
+            messageSeen(userid);
+    }
+    //Metoda koja proverava da li je korisnik procitao poruku
+    private void  messageSeen(final String userid)
+    {
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        seenListener = reference.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    Chat chat = dataSnapshot.getValue(Chat.class);
+
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid))
+                    {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("statusSeen", true);
+                        dataSnapshot.getRef().updateChildren(map);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error)
+            {
+
+            }
+        });
+
     }
 
     private void sendMessage(String sender, String receiver, String message)
@@ -157,7 +188,7 @@ public class MessageActivity extends AppCompatActivity
 
         final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("ChatList")
                 .child(firebaseUser.getUid())
-                .child(userId);
+                .child(userid);
 
         chatRef.addListenerForSingleValueEvent(new ValueEventListener()
         {
@@ -166,7 +197,7 @@ public class MessageActivity extends AppCompatActivity
             {
                 if(!snapshot.exists())
                 {
-                    chatRef.child("id").setValue(userId);
+                    chatRef.child("id").setValue(userid);
                 }
             }
 
@@ -178,7 +209,7 @@ public class MessageActivity extends AppCompatActivity
         });
     }
 
-    private void readMessage(String myId, String userId, String imageUrl)
+    private void readMessage(final String myId, final String userId, String imageUrl)
     {
         chats = new ArrayList<>();
 
@@ -211,37 +242,7 @@ public class MessageActivity extends AppCompatActivity
         });
     }
 
-    //Metoda koja proverava da li je korisnik procitao poruku
-    private void  messageSeen(final String userid)
-    {
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
 
-        seenListener = reference.addValueEventListener(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                for(DataSnapshot dataSnapshot:snapshot.getChildren())
-                {
-                    Chat chat = dataSnapshot.getValue(Chat.class);
-
-                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid))
-                    {
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("statusSeen", true);
-                        dataSnapshot.getRef().updateChildren(map);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error)
-            {
-
-            }
-        });
-
-    }
 
     //Provera statusa poruke
     private void statusCheck(String status)
