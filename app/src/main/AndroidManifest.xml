@@ -18,6 +18,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chatsome">
+        <service
+            android:name=".notifications.FirebaseMessaging"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <activity android:name=".ResetPasswordActivity"/>
         <activity android:name=".MessageActivity" />
         <activity android:name=".MainActivity" />

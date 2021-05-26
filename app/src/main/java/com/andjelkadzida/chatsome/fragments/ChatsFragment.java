@@ -15,6 +15,7 @@ import com.andjelkadzida.chatsome.R;
 import com.andjelkadzida.chatsome.adapter.UserAdapter;
 import com.andjelkadzida.chatsome.model.ChatList;
 import com.andjelkadzida.chatsome.model.Users;
+import com.andjelkadzida.chatsome.notifications.Token;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +43,8 @@ public class ChatsFragment extends Fragment
 
     RecyclerView chatRecycler;
 
+    boolean notify = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -64,7 +67,7 @@ public class ChatsFragment extends Fragment
             {
                 usersList.clear();
 
-                for(DataSnapshot dataSnapshot: snapshot.getChildren())
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     ChatList chatList = dataSnapshot.getValue(ChatList.class);
                     usersList.add(chatList);
@@ -79,6 +82,10 @@ public class ChatsFragment extends Fragment
 
             }
         });
+
+        /**UZMI TOKEN**/
+        updateToken(FirebaseAuth.getInstance().getUid());
+
         return view;
     }
 
@@ -94,16 +101,17 @@ public class ChatsFragment extends Fragment
             {
                 users.clear();
 
-                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     Users user = dataSnapshot.getValue(Users.class);
 
-                    for(ChatList chatList:usersList)
+                    for (ChatList chatList : usersList)
                     {
-                        if(user.getId().equals(chatList.getId()))
+                        if (user.getId().equals(chatList.getId()))
                         {
                             users.add(user);
                         }
+
                     }
                 }
 
@@ -117,9 +125,12 @@ public class ChatsFragment extends Fragment
 
             }
         });
-
-
-
     }
 
+    private void updateToken(String token)
+    {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
+        reference.child(firebaseUser.getUid()).setValue(token1);
+    }
 }

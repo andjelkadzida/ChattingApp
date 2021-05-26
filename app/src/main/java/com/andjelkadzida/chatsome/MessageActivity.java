@@ -17,8 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andjelkadzida.chatsome.adapter.MessageAdapter;
+import com.andjelkadzida.chatsome.notifications.APIService;
 import com.andjelkadzida.chatsome.model.Chat;
 import com.andjelkadzida.chatsome.model.Users;
+import com.andjelkadzida.chatsome.notifications.Client;
+import com.andjelkadzida.chatsome.notifications.Data;
+import com.andjelkadzida.chatsome.notifications.Response;
+import com.andjelkadzida.chatsome.notifications.Sender;
+import com.andjelkadzida.chatsome.notifications.Token;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,13 +32,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
+import retrofit2.Call;
+import retrofit2.Callback;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+
 
 public class MessageActivity extends AppCompatActivity
 {
@@ -53,11 +63,13 @@ public class MessageActivity extends AppCompatActivity
     MessageAdapter messageAdapter;
     List<Chat> chats;
 
-    RecyclerView viewRecycle;
     String userid;
 
     ValueEventListener seenListener;
 
+    APIService apiService;
+
+    boolean notify = false;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -65,6 +77,8 @@ public class MessageActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         //Inicijalizacija widgeta
         userImage = findViewById(R.id.userProfileImage);
@@ -140,6 +154,7 @@ public class MessageActivity extends AppCompatActivity
         });
             messageSeen(userid);
     }
+
     //Metoda koja proverava da li je korisnik procitao poruku
     private void  messageSeen(final String userid)
     {
@@ -199,6 +214,7 @@ public class MessageActivity extends AppCompatActivity
                 {
                     chatRef.child("id").setValue(userid);
                 }
+
             }
 
             @Override
@@ -270,4 +286,50 @@ public class MessageActivity extends AppCompatActivity
         statusCheck("Offline");
     }
 
+
+    private void sendNotification(String receiver, final String username, final String message){
+        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = tokens.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    Token token = snapshot.getValue(Token.class);
+
+                    Data data = new Data(firebaseUser.getUid(), R.mipmap.ic_launcher, username+": "+message, "New Message", userid);
+
+                    Sender sender = new Sender(data, token.getToken());
+
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<Response>()
+                            {
+                                @Override
+                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response)
+                                {
+                                    if (response.code() == 200){
+                                        if (response.body().success != 1)
+                                        {
+                                            Toast.makeText(MessageActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Response> call, Throwable t)
+                                {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
