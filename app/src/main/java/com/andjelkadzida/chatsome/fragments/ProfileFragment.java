@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment
 
                 if(users.getImageUrl().equals("default"))
                 {
-                    profilePicture.setImageResource(R.mipmap.ic_launcher);
+                    profilePicture.setImageResource(R.mipmap.user_ico);
                 }
                 else
                 {

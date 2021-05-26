@@ -98,7 +98,7 @@ public class MessageActivity extends AppCompatActivity
 
                 if(user.getImageUrl().equals("default"))
                 {
-                    userImage.setImageResource(R.mipmap.ic_launcher);
+                    userImage.setImageResource(R.mipmap.user_ico);
                 }
                 else
                 {
