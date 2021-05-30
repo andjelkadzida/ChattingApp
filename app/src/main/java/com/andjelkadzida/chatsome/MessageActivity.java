@@ -112,7 +112,7 @@ public class MessageActivity extends AppCompatActivity
 
                 if(user.getImageUrl().equals("default"))
                 {
-                    userImage.setImageResource(R.mipmap.user_ico);
+                    userImage.setImageResource(R.drawable.user_ico);
                 }
                 else
                 {
@@ -299,7 +299,7 @@ public class MessageActivity extends AppCompatActivity
                 {
                     Token token = snapshot.getValue(Token.class);
 
-                    Data data = new Data(firebaseUser.getUid(), R.mipmap.ic_launcher, username+": "+message, "New Message", userid);
+                    Data data = new Data(firebaseUser.getUid(), R.drawable.user_ico, username+": "+message, "New Message", userid);
 
                     Sender sender = new Sender(data, token.getToken());
 

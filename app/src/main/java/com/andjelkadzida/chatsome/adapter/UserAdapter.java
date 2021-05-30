@@ -51,7 +51,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
 
         if (user.getImageUrl().equals("default"))
         {
-            holder.imageView.setImageResource(R.mipmap.ic_launcher);
+            holder.imageView.setImageResource(R.drawable.user_ico);
         }
         else {
             Glide.with(context)
@@ -79,15 +79,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
             holder.offlineView.setVisibility(View.GONE);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener()
+        holder.itemView.setOnClickListener(v ->
         {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(context, MessageActivity.class);
-                intent.putExtra("userid", user.getId());
-                context.startActivity(intent);
-            }
+            Intent intent = new Intent(context, MessageActivity.class);
+            intent.putExtra("userid", user.getId());
+            context.startActivity(intent);
         });
     }
 

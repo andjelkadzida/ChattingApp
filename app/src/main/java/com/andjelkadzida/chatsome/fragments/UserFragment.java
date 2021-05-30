@@ -75,6 +75,7 @@ public class UserFragment extends Fragment
                     if(user!=null && user.getId() != null && !user.getId().equals(firebaseUser.getUid()))
                     {
                          users.add(user);
+                        // userAdapter.notifyDataSetChanged();
                     }
 
                     userAdapter = new UserAdapter(getContext(), users, false);

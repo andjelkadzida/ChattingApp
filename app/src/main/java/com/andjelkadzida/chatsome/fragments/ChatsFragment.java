@@ -107,9 +107,10 @@ public class ChatsFragment extends Fragment
 
                     for (ChatList chatList : usersList)
                     {
-                        if (user.getId().equals(chatList.getId()))
+                        if (user.getId().equals(chatList.getId())  && user != null)
                         {
                             users.add(user);
+                           // userAdapter.notifyDataSetChanged();
                         }
 
                     }

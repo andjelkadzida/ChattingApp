@@ -71,7 +71,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         if(imageUrl.equals("default"))
         {
-            holder.imageView.setImageResource(R.mipmap.ic_launcher);
+            holder.imageView.setImageResource(R.drawable.user_ico);
         }
         else
         {

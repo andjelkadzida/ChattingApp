@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andjelkadzida.chatsome.MessageActivity;
 import com.andjelkadzida.chatsome.R;
 import com.andjelkadzida.chatsome.model.Users;
 import com.bumptech.glide.Glide;
@@ -74,24 +76,22 @@ public class ProfileFragment extends Fragment
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-
         reference.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
                 Users users = snapshot.getValue(Users.class);
-                assert users != null;
-                assert users.getImageUrl() != null;
                 username.setText(users.getUsername());
+                assert users != null;
 
-                if(users.getImageUrl().equals("default"))
+                if(users.getImageUrl().equals("default") || users.getImageUrl()==null)
                 {
-                    profilePicture.setImageResource(R.mipmap.user_ico);
+                    profilePicture.setImageResource(R.drawable.user_ico);
                 }
                 else
                 {
-                    Glide.with(getContext()).load(users.getImageUrl()).into(profilePicture);
+                   Glide.with(getContext()).load(users.getImageUrl()).into(profilePicture);
                 }
             }
 
