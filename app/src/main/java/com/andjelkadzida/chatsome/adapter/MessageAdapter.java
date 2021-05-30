@@ -16,9 +16,9 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
-
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder>
 {
@@ -102,10 +102,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return chats.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder
+   public class ViewHolder extends RecyclerView.ViewHolder
     {
         public TextView showMessage;
-        public ImageView imageView;
+        public CircleImageView imageView;
         public TextView seenViewer;
 
         public ViewHolder(View itemView)

@@ -1,5 +1,12 @@
 package com.andjelkadzida.chatsome;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,15 +15,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
 import com.andjelkadzida.chatsome.fragments.ChatsFragment;
 import com.andjelkadzida.chatsome.fragments.ProfileFragment;
 import com.andjelkadzida.chatsome.fragments.UserFragment;
-import com.andjelkadzida.chatsome.model.Users;
+import com.andjelkadzida.chatsome.model.Chat;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +27,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,18 +46,35 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("");
+
+       // ImageView profileImage = findViewById(R.id.profileImage);
+      //  TextView username = findViewById(R.id.username);
+
 
         //Iz firebase baze podataka uzimam trenutno ulogovanog korisnika i smestam ga u currentUser
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
-        reference.addValueEventListener(new ValueEventListener()
+       /* reference.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
                 Users user = snapshot.getValue(Users.class);
+                username.setText(user.getUsername());
+                if(user != null && user.getImageUrl().equals("default"))
+                {
+                    profileImage.setImageResource(R.drawable.user_ico);
+                }
+                else
+                {
+                    Glide.with(getApplicationContext()).load(user.getImageUrl()).into(profileImage);
+                }
+
             }
 
             @Override
@@ -61,22 +82,53 @@ public class MainActivity extends AppCompatActivity
             {
 
             }
-        });
+        });*/
 
         //TabLayout i ViewPager
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        ViewPager viewPager = findViewById(R.id.viewPager);
+       final TabLayout tabLayout = findViewById(R.id.tabLayout);
+       final ViewPager viewPager = findViewById(R.id.viewPager);
 
-        //ViewPagerAdapter
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot)
+            {
+                ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+                int unread = 0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Chat chat = dataSnapshot.getValue(Chat.class);
+                    if (chat.getReceiver().equals(currentUser.getUid()) && !chat.isStatusSeen())
+                    {
+                        unread++;
+                    }
+                }
 
-        viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
-        viewPagerAdapter.addFragment(new UserFragment(), "Users");
-        viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+                if(unread == 0)
+                {
+                    viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+                }
+                else
+                {
+                    viewPagerAdapter.addFragment(new ChatsFragment(), "("+unread+") Chats");
+                }
 
-        viewPager.setAdapter(viewPagerAdapter);
+                //ViewPagerAdapter
+                viewPagerAdapter.addFragment(new UserFragment(), "Users");
+                viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
 
-        tabLayout.setupWithViewPager(viewPager);
+                viewPager.setAdapter(viewPagerAdapter);
+
+                tabLayout.setupWithViewPager(viewPager);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error)
+            {
+
+            }
+        });
     }
 
 
@@ -107,7 +159,8 @@ public class MainActivity extends AppCompatActivity
 
 
     //Klasa ViewPagerAdapter
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    class ViewPagerAdapter extends FragmentPagerAdapter
+    {
         private final ArrayList<Fragment> fragments;
         private final ArrayList<String> titles;
 
@@ -148,12 +201,12 @@ public class MainActivity extends AppCompatActivity
     //Provera da li je korisnik online
     private void checkOnlineStatus(String status)
     {
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
+            reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
 
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("status", status);
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("status", status);
 
-        reference.updateChildren(hashMap);
+            reference.updateChildren(hashMap);
     }
 
     @Override
@@ -169,4 +222,5 @@ public class MainActivity extends AppCompatActivity
         super.onPause();
         checkOnlineStatus("Offline");
     }
+
 }

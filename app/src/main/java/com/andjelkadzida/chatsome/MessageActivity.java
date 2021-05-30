@@ -1,12 +1,7 @@
 package com.andjelkadzida.chatsome;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -16,10 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.andjelkadzida.chatsome.adapter.MessageAdapter;
-import com.andjelkadzida.chatsome.notifications.APIService;
 import com.andjelkadzida.chatsome.model.Chat;
 import com.andjelkadzida.chatsome.model.Users;
+import com.andjelkadzida.chatsome.notifications.APIService;
 import com.andjelkadzida.chatsome.notifications.Client;
 import com.andjelkadzida.chatsome.notifications.Data;
 import com.andjelkadzida.chatsome.notifications.Response;
@@ -34,14 +36,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import retrofit2.Call;
-import retrofit2.Callback;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class MessageActivity extends AppCompatActivity
@@ -78,6 +81,15 @@ public class MessageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(MessageActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         //Inicijalizacija widgeta
@@ -100,6 +112,32 @@ public class MessageActivity extends AppCompatActivity
 
         //Uzimanje treuntog korisnika
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        //Implementiranje dugmeta za slanje poruke
+        btnSend.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                notify = true;
+                //Iz editText widgeta se uzima uneti tekst, konvertuje u string i pakuje u promenljivu istog tipa
+                String message = messageText.getText().toString();
+                //Ako TextEdit nije prazan, tj ako je korisnik uneo poruku, poziva se funkcija za slanje poruke
+                if(!message.equals(""))
+                {
+                    sendMessage(firebaseUser.getUid(), userid, message);
+                }
+                //Ako korisnik nije uneo poruku, a klikne na dugme za slanje poruke, dobija obavestenje da je potrebno da unese poruku
+                else
+                {
+                    Toast.makeText(MessageActivity.this, "Enter your message...", Toast.LENGTH_SHORT).show();
+                }
+                //Nakon sto je poruka poslata, EditText se prazni i spreman je za unos nove poruke
+                messageText.setText("");
+            }
+        });
+            //messageSeen(userid);
+
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener()
@@ -128,31 +166,8 @@ public class MessageActivity extends AppCompatActivity
 
             }
         });
+        messageSeen(userid);
 
-
-        //Implementiranje dugmeta za slanje poruke
-        btnSend.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                //Iz editText widgeta se uzima uneti tekst, konvertuje u string i pakuje u promenljivu istog tipa
-                String message = messageText.getText().toString();
-                //Ako TextEdit nije prazan, tj ako je korisnik uneo poruku, poziva se funkcija za slanje poruke
-                if(!message.equals(""))
-                {
-                    sendMessage(firebaseUser.getUid(), userid, message);
-                }
-                //Ako korisnik nije uneo poruku, a klikne na dugme za slanje poruke, dobija obavestenje da je potrebno da unese poruku
-                else
-                {
-                    Toast.makeText(MessageActivity.this, "Enter your message...", Toast.LENGTH_SHORT).show();
-                }
-                //Nakon sto je poruka poslata, EditText se prazni i spreman je za unos nove poruke
-                messageText.setText("");
-            }
-        });
-            messageSeen(userid);
     }
 
     //Metoda koja proverava da li je korisnik procitao poruku
@@ -223,9 +238,37 @@ public class MessageActivity extends AppCompatActivity
 
             }
         });
+
+        final DatabaseReference chatReceiverReference = FirebaseDatabase.getInstance().getReference("ChatList").child(userid).child(firebaseUser.getUid());
+
+        chatReceiverReference.child("id").setValue(firebaseUser.getUid());
+
+        final String msg = message;
+
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                Users user = snapshot.getValue(Users.class);
+                if (notify)
+                {
+                    sendNotification(receiver, user.getUsername(), msg);
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error)
+            {
+
+            }
+        });
     }
 
-    private void readMessage(final String myId, final String userId, String imageUrl)
+    private void readMessage(final String myId, final String userId, final String imageUrl)
     {
         chats = new ArrayList<>();
 
@@ -260,7 +303,7 @@ public class MessageActivity extends AppCompatActivity
 
 
 
-    //Provera statusa poruke
+    //Provera statusa korisnika, tj da li je korisnik online
     private void statusCheck(String status)
     {
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -271,11 +314,19 @@ public class MessageActivity extends AppCompatActivity
         reference.updateChildren(hashMap);
     }
 
+    private void currentUser(String userid)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+        editor.putString("currentuser", userid);
+        editor.apply();
+    }
+
     @Override
     protected void onResume()
     {
         super.onResume();
         statusCheck("Online");
+        currentUser(userid);
     }
 
     @Override
@@ -284,9 +335,11 @@ public class MessageActivity extends AppCompatActivity
         super.onPause();
         reference.removeEventListener(seenListener);
         statusCheck("Offline");
+        currentUser(userid);
     }
 
 
+    //Slanje obavestenja korisniku
     private void sendNotification(String receiver, final String username, final String message){
         DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
         Query query = tokens.orderByKey().equalTo(receiver);

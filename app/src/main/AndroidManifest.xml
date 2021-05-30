@@ -19,6 +19,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chatsome">
+        <activity android:name=".StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MessageActivity"/>
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".PhoneLoginActivity"/>
+        <activity android:name=".ResetPasswordActivity"/>
+
         <service
             android:name=".notifications.FirebaseMessaging"
             android:stopWithTask="false">
@@ -26,18 +40,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <activity android:name=".ResetPasswordActivity"/>
-        <activity android:name=".MessageActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".PhoneLoginActivity"/>
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

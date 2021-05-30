@@ -1,52 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:padding="10dp"
     android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:id="@+id/userImageView"
+    android:src="@drawable/user_ico"/>
 
     <TextView
         android:id="@+id/allUsersNameView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/userImageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_toEndOf="@id/userImageView"
+        android:layout_marginStart="10dp"
+        android:layout_centerVertical="true"
+        android:textSize="18sp"
+        android:text="@string/profile"/>
 
-    <ImageView
-        android:id="@+id/userImageView"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/photo" />
-
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/onlineView"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/userImageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.653"
-        app:srcCompat="@drawable/backgroud_left" />
+        android:layout_below="@id/allUsersNameView"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="-15dp"
+        android:layout_toEndOf="@id/userImageView"
+        android:src="@color/green"/>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/offlineView"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginBottom="28dp"
+        android:layout_height="15dp"
+        android:layout_width="15dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/userImageView"
-        app:layout_constraintEnd_toStartOf="@+id/userImageView"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onlineView"
-        app:srcCompat="@drawable/background_right" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:src="@color/yellow"
+        android:layout_below="@id/allUsersNameView"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="-15dp"
+        android:layout_toEndOf="@id/userImageView" />
+
+    <TextView
+        android:id="@+id/lastMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/allUsersNameView"
+        android:layout_toEndOf="@id/userImageView"
+        android:layout_marginTop="5dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:layout_marginStart="20dp"
+        android:maxLines="1"/>
+
+</RelativeLayout>
