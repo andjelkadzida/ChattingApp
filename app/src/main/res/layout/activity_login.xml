@@ -67,7 +67,7 @@
                     android:layout_marginLeft="17dp"
                     android:layout_marginRight="17dp"
                     android:padding="4dp"
-                    android:gravity="bottom"/>
+                    android:gravity="bottom" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,7 +83,7 @@
                 android:layout_marginEnd="23dp"
                 android:text="@string/forgotPass"
                 android:textAlignment="textEnd"
-                android:textSize="17sp"
+                android:textSize="18sp"
                 android:onClick="resetPassword"/>
 
             <Button
@@ -99,7 +99,9 @@
                 android:textAllCaps="false"
                 android:layout_below="@+id/forgotPass"
                 android:textColor="@android:color/background_light"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:drawableEnd="@drawable/ic_lock_open"/>
 
             <TextView
                 android:id="@+id/newUser"
