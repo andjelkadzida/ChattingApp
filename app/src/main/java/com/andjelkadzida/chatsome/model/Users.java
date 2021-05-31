@@ -6,14 +6,16 @@ public class Users
     private String imageUrl;
     private String status;
     private String username;
+    private String search;
 
     //Konstruktori
-    public Users(String id, String imageUrl, String username, String status)
+    public Users(String id, String imageUrl, String username, String status, String search)
     {
         this.id = id;
         this.imageUrl = imageUrl;
         this.status = status;
         this.username = username;
+        this.search = search;
     }
 
     public Users()
@@ -59,6 +61,16 @@ public class Users
     public void setUsername(String username)
     {
         this.username = username;
+    }
+
+    public String getSearch()
+    {
+        return search;
+    }
+
+    public void setSearch(String search)
+    {
+        this.search = search;
     }
 
     @Override

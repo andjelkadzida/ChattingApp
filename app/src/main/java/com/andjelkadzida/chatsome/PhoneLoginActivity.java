@@ -178,6 +178,7 @@ public class PhoneLoginActivity extends AppCompatActivity
                            usersMap.put("username", username);
                            usersMap.put("imageUrl", "default");
                            usersMap.put("status", "offline");
+                           usersMap.put("search", username.toLowerCase());
                            databaseReference.setValue(usersMap).addOnCompleteListener(new OnCompleteListener<Void>()
                            {
                                @Override
