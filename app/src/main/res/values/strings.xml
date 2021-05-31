@@ -1,20 +1,18 @@
 <resources>
     <!--App name-->
     <string name="app_name">Chatty</string>
+    <string name="email">E-mail</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="reset">Reset password</string>
 
     <!--StartActivity-->
-    <string name="btnRedirectToLoginText">Login</string>
     <string name="btnRedirectToPhoneLoginText">Login using phone</string>
     <string name="btnRedirectToRegisterText">Register</string>
 
     <!--ActivityRegistration-->
     <string name="register">Registration</string>
-    <string name="hintUsername">Username</string>
-    <string name="hintPassword">Password</string>
-    <string name="hintEmail">E-mail</string>
-    <!--LoginActivity-->
-    <string name="loginMailHint">E-mail</string>
-    <string name="loginPassHint">Password</string>
     <string name="forgotPass">Forgot password? Reset it now</string>
     <string name="btnLoginText">Login</string>
     <string name="noAcc">Do not have an account? Register now</string>
@@ -36,18 +34,7 @@
     <!--ActivityMessage-->
     <string name="typeHint">Type your message...</string>
     <string name="sendIco">Send icon</string>
-    <string name="profileImageDescription">Profile picture</string>
-
-
-    <!--User item-->
-    <string name="photo">User photo</string>
-    <string name="profile">Username</string>
-
-    <!--ResetPasswordActivity-->
-    <string name="hintEmailReset">E-mail</string>
-    <string name="resetView">Reset password</string>
-    <string name="reset">Reset password</string>
-
+    <string name="profilePicture">Profile picture</string>
 
     <!--PhoneLoginActivity-->
     <string name="btnVerifyText">Verify</string>

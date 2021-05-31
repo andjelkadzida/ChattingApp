@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:textColor="#fff"
-        android:text="@string/btnRedirectToLoginText"/>
+        android:text="@string/login"/>
 
     <Button
         android:layout_width="match_parent"

@@ -18,7 +18,7 @@
         android:layout_marginStart="10dp"
         android:layout_centerVertical="true"
         android:textSize="18sp"
-        android:text="@string/profile"/>
+        android:text="@string/profilePicture"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/onlineView"
