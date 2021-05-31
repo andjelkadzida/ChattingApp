@@ -157,7 +157,7 @@ public class MessageActivity extends AppCompatActivity
                 }
                 else
                 {
-                    Glide.with(MessageActivity.this).load(user.getImageUrl()).into(userImage);
+                    Glide.with(getApplicationContext()).load(user.getImageUrl()).into(userImage);
                 }
 
                 readMessage(firebaseUser.getUid(), userid, user.getImageUrl());
