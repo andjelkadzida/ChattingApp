@@ -54,7 +54,7 @@
         android:layout_toEndOf="@id/profileImg"
         android:layout_marginTop="5dp"
         android:paddingTop="5dp"
-        android:textColor="#00af9c"
+        android:textColor="@color/mint"
         android:layout_marginStart="20dp"
         android:maxLines="1"/>
 

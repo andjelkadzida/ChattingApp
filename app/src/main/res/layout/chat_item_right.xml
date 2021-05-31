@@ -24,7 +24,7 @@
             android:padding="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/teal_200"
+            android:background="@drawable/round_chat_item_right"
             android:text="@string/hello"
             android:layout_alignParentEnd="true" />
 
@@ -37,7 +37,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="6dp"
-        android:text="TextView"/>
+        android:textColor="@color/white"
+        android:text=""/>
 
     </RelativeLayout>
 

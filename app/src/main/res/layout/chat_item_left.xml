@@ -8,23 +8,22 @@
         android:id="@+id/profilePic"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/user_ico"/>
+        android:src="@drawable/user_ico" />
 
     <TextView
         android:id="@+id/showMessage"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/profilePic"
+        android:layout_marginStart="35dp"
         android:padding="8dp"
-        android:background="@color/orange"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text=""
         android:textColor="@color/white"
-        android:text="@string/hello"/>
+        android:textSize="14sp"
+        android:background="@drawable/round_chat_item_left"/>
 
     <TextView
         android:id="@+id/statusSeenView"
-        android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/showMessage"
@@ -34,7 +33,5 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="-2dp"
         android:textSize="12sp"
-        android:visibility="gone"
-        android:textColor="@color/black"/>
-
+        android:textColor="@color/white"/>
 </RelativeLayout>
