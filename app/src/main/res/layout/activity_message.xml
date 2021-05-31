@@ -11,11 +11,11 @@
         android:id="@+id/bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed">
+        android:fontFamily="sans-serif-condensed-medium">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-condensed-medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -31,7 +31,7 @@
 
             <TextView
                 android:id="@+id/usernameV"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="clip_vertical|start"
@@ -46,7 +46,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/bar_layout"
@@ -54,7 +54,7 @@
 
     <RelativeLayout
         android:id="@+id/bottom"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff"
@@ -63,7 +63,7 @@
 
         <EditText
             android:id="@+id/textSend"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-condensed-medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -77,7 +77,7 @@
 
         <ImageButton
             android:id="@+id/btnSend"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-condensed-medium"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"

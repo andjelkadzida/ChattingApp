@@ -8,7 +8,7 @@
     tools:context=".StartActivity">
 
     <TextView
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
@@ -19,7 +19,7 @@
 
     <Button
         android:id="@+id/btnRedirectToLogin"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:textColor="#fff"
         android:layout_marginTop="10dp"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-condensed-medium"
         android:text="@string/btnRedirectToPhoneLoginText"/>
 
     <Button
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:textColor="#fff"
         android:layout_marginTop="10dp"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-condensed-medium"
         android:text="@string/btnRedirectToRegisterText"/>
 
 </LinearLayout>

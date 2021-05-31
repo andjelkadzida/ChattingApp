@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,7 +20,7 @@
 
             <TextView
                 android:id="@+id/TextView3"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textView"
@@ -45,7 +45,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:layout_below="@id/profileImage"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="18sp"
