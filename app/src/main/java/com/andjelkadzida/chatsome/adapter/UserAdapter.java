@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,17 +12,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.andjelkadzida.chatsome.MessageActivity;
 import com.andjelkadzida.chatsome.R;
+import com.andjelkadzida.chatsome.model.Chat;
 import com.andjelkadzida.chatsome.model.Users;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
 {
     private final Context context;
     private final List<Users> users;
     private final boolean isChat;
+
+    String latestMsg;
 
     //Konstruktor
 
@@ -46,17 +58,26 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        Users user = users.get(position);
+        final Users user = users.get(position);
         holder.usersNameView.setText(user.getUsername());
 
         if (user.getImageUrl().equals("default"))
         {
-            holder.imageView.setImageResource(R.mipmap.ic_launcher);
+            holder.ProfileimageView.setImageResource(R.drawable.user_ico);
         }
         else {
             Glide.with(context)
                     .load(user.getImageUrl())
-                    .into(holder.imageView);
+                    .into(holder.ProfileimageView);
+        }
+
+        if(isChat)
+        {
+            lastMessage(user.getId(), holder.lastMessage);
+        }
+        else
+        {
+            holder.lastMessage.setVisibility(View.GONE);
         }
 
         //Check status
@@ -79,15 +100,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
             holder.offlineView.setVisibility(View.GONE);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener()
+        holder.itemView.setOnClickListener(v ->
         {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(context, MessageActivity.class);
-                intent.putExtra("userid", user.getId());
-                context.startActivity(intent);
-            }
+            Intent intent = new Intent(context, MessageActivity.class);
+            intent.putExtra("userid", user.getId());
+            context.startActivity(intent);
         });
     }
 
@@ -99,18 +116,61 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        public TextView usersNameView;
-        public ImageView imageView, onlineView, offlineView;
+        public TextView usersNameView, lastMessage;
+        public CircleImageView ProfileimageView, onlineView, offlineView;
 
         public ViewHolder(@NonNull View itemView)
         {
             super(itemView);
 
             usersNameView = itemView.findViewById(R.id.allUsersNameView);
-            imageView = itemView.findViewById(R.id.userImageView);
+            ProfileimageView = itemView.findViewById(R.id.profileImg);
             onlineView = itemView.findViewById(R.id.onlineView);
             offlineView = itemView.findViewById(R.id.offlineView);
+            lastMessage = itemView.findViewById(R.id.lastMessage);
         }
+    }
+    private void lastMessage(final String userid, final TextView lastMsg)
+    {
+        latestMsg = "default";
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        databaseReference.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot)
+            {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    Chat chat = dataSnapshot.getValue(Chat.class);
+
+                    if(firebaseUser != null && chat != null)
+                    {
+                        if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid()))
+                        {
+                            latestMsg = chat.getMessage();
+                        }
+                    }
+                }
+                switch (latestMsg)
+                {
+                    case "default":
+                        lastMsg.setText("No message");
+                        break;
+                    default:
+                        lastMsg.setText(latestMsg);
+                        break;
+                }
+                latestMsg = "default";
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error)
+            {
+
+            }
+        });
     }
 
 }

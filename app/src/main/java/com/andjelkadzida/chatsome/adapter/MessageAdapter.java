@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,9 +15,9 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
-
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder>
 {
@@ -71,7 +70,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         if(imageUrl.equals("default"))
         {
-            holder.imageView.setImageResource(R.mipmap.ic_launcher);
+            holder.imageView.setImageResource(R.drawable.user_ico);
         }
         else
         {
@@ -102,10 +101,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return chats.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder
+   public class ViewHolder extends RecyclerView.ViewHolder
     {
         public TextView showMessage;
-        public ImageView imageView;
+        public CircleImageView imageView;
         public TextView seenViewer;
 
         public ViewHolder(View itemView)
@@ -113,7 +112,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             super(itemView);
 
             showMessage = itemView.findViewById(R.id.showMessage);
-            imageView = itemView.findViewById(R.id.profilePicture);
+            imageView = itemView.findViewById(R.id.profilePic);
             seenViewer = itemView.findViewById(R.id.statusSeenView);
         }
     }

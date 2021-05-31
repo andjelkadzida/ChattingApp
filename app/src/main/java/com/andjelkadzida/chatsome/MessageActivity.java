@@ -1,24 +1,31 @@
 package com.andjelkadzida.chatsome;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.andjelkadzida.chatsome.adapter.MessageAdapter;
 import com.andjelkadzida.chatsome.model.Chat;
 import com.andjelkadzida.chatsome.model.Users;
+import com.andjelkadzida.chatsome.notifications.APIService;
+import com.andjelkadzida.chatsome.notifications.Client;
+import com.andjelkadzida.chatsome.notifications.Data;
+import com.andjelkadzida.chatsome.notifications.Response;
+import com.andjelkadzida.chatsome.notifications.Sender;
+import com.andjelkadzida.chatsome.notifications.Token;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +33,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,12 +42,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+
+
 public class MessageActivity extends AppCompatActivity
 {
 
     //Widgeti
     TextView username;
-    ImageView userImage;
+    CircleImageView userImage;
 
     RecyclerView recyclerView;
     EditText messageText;
@@ -53,11 +66,13 @@ public class MessageActivity extends AppCompatActivity
     MessageAdapter messageAdapter;
     List<Chat> chats;
 
-    RecyclerView viewRecycle;
     String userid;
 
     ValueEventListener seenListener;
 
+    APIService apiService;
+
+    boolean notify = false;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -66,11 +81,16 @@ public class MessageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        //Inicijalizacija widgeta
-        userImage = findViewById(R.id.userProfileImage);
-        username = findViewById(R.id.usernameV);
-        messageText = findViewById(R.id.textSend);
-        btnSend = findViewById(R.id.btnSend);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(MessageActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         //RecycleViewer
         recyclerView = findViewById(R.id.recycler);
@@ -80,41 +100,17 @@ public class MessageActivity extends AppCompatActivity
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        //Inicijalizacija widgeta
+        userImage = findViewById(R.id.profilePicture);
+        username = findViewById(R.id.usernameV);
+        messageText = findViewById(R.id.textSend);
+        btnSend = findViewById(R.id.btnSend);
 
         intent = getIntent();
         userid = intent.getStringExtra("userid");
 
         //Uzimanje treuntog korisnika
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-
-        reference.addValueEventListener(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                Users user = snapshot.getValue(Users.class);
-                username.setText(user.getUsername());
-
-                if(user.getImageUrl().equals("default"))
-                {
-                    userImage.setImageResource(R.mipmap.user_ico);
-                }
-                else
-                {
-                    Glide.with(MessageActivity.this).load(user.getImageUrl()).into(userImage);
-                }
-
-                readMessage(firebaseUser.getUid(), userid, user.getImageUrl());
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error)
-            {
-
-            }
-        });
-
 
         //Implementiranje dugmeta za slanje poruke
         btnSend.setOnClickListener(new View.OnClickListener()
@@ -122,6 +118,7 @@ public class MessageActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                notify = true;
                 //Iz editText widgeta se uzima uneti tekst, konvertuje u string i pakuje u promenljivu istog tipa
                 String message = messageText.getText().toString();
                 //Ako TextEdit nije prazan, tj ako je korisnik uneo poruku, poziva se funkcija za slanje poruke
@@ -138,8 +135,40 @@ public class MessageActivity extends AppCompatActivity
                 messageText.setText("");
             }
         });
-            messageSeen(userid);
+            //messageSeen(userid);
+
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+
+        reference.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                Users user = snapshot.getValue(Users.class);
+                username.setText(user.getUsername());
+
+                if(user.getImageUrl().equals("default"))
+                {
+                    userImage.setImageResource(R.drawable.user_ico);
+                }
+                else
+                {
+                    Glide.with(MessageActivity.this).load(user.getImageUrl()).into(userImage);
+                }
+
+                readMessage(firebaseUser.getUid(), userid, user.getImageUrl());
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error)
+            {
+
+            }
+        });
+        messageSeen(userid);
+
     }
+
     //Metoda koja proverava da li je korisnik procitao poruku
     private void  messageSeen(final String userid)
     {
@@ -199,6 +228,7 @@ public class MessageActivity extends AppCompatActivity
                 {
                     chatRef.child("id").setValue(userid);
                 }
+
             }
 
             @Override
@@ -207,9 +237,37 @@ public class MessageActivity extends AppCompatActivity
 
             }
         });
+
+        final DatabaseReference chatReceiverReference = FirebaseDatabase.getInstance().getReference("ChatList").child(userid).child(firebaseUser.getUid());
+
+        chatReceiverReference.child("id").setValue(firebaseUser.getUid());
+
+        final String msg = message;
+
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                Users user = snapshot.getValue(Users.class);
+                if (notify)
+                {
+                    sendNotification(receiver, user.getUsername(), msg);
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error)
+            {
+
+            }
+        });
     }
 
-    private void readMessage(final String myId, final String userId, String imageUrl)
+    private void readMessage(final String myId, final String userId, final String imageUrl)
     {
         chats = new ArrayList<>();
 
@@ -244,7 +302,7 @@ public class MessageActivity extends AppCompatActivity
 
 
 
-    //Provera statusa poruke
+    //Provera statusa korisnika, tj da li je korisnik online
     private void statusCheck(String status)
     {
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -255,11 +313,19 @@ public class MessageActivity extends AppCompatActivity
         reference.updateChildren(hashMap);
     }
 
+    private void currentUser(String userid)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+        editor.putString("currentuser", userid);
+        editor.apply();
+    }
+
     @Override
     protected void onResume()
     {
         super.onResume();
         statusCheck("Online");
+        currentUser(userid);
     }
 
     @Override
@@ -268,6 +334,54 @@ public class MessageActivity extends AppCompatActivity
         super.onPause();
         reference.removeEventListener(seenListener);
         statusCheck("Offline");
+        currentUser("none");
     }
 
+
+    //Slanje obavestenja korisniku
+    private void sendNotification(String receiver, final String username, final String message){
+        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = tokens.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    Token token = snapshot.getValue(Token.class);
+
+                    Data data = new Data(firebaseUser.getUid(), R.drawable.user_ico, username+": "+message, "New Message", userid);
+
+                    Sender sender = new Sender(data, token.getToken());
+
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<Response>()
+                            {
+                                @Override
+                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response)
+                                {
+                                    if (response.code() == 200){
+                                        if (response.body().success != 1)
+                                        {
+                                            Toast.makeText(MessageActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Response> call, Throwable t)
+                                {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

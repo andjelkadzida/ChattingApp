@@ -5,18 +5,15 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.andjelkadzida.chatsome.R;
 import com.andjelkadzida.chatsome.model.Users;
@@ -37,15 +34,17 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
-import static android.app.Activity.RESULT_OK;
-
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment
 {
     TextView username;
-    ImageView profilePicture;
+    CircleImageView profilePicture;
 
     DatabaseReference reference;
     FirebaseUser firebaseUser;
@@ -54,7 +53,7 @@ public class ProfileFragment extends Fragment
     StorageReference storageReference;
     private static final int PICTURE_REQ = 1;
     private Uri pictureUri;
-    private StorageTask<UploadTask.TaskSnapshot> uploadPicture;
+    private StorageTask uploadPicture;
 
     public ProfileFragment()
     {
@@ -62,11 +61,10 @@ public class ProfileFragment extends Fragment
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        profilePicture = view.findViewById(R.id.profilePic);
+        profilePicture = view.findViewById(R.id.profileImage);
         username = view.findViewById(R.id.profileUsername);
 
         //Profilna slika u storage reference
@@ -74,24 +72,21 @@ public class ProfileFragment extends Fragment
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-
         reference.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
                 Users users = snapshot.getValue(Users.class);
-                assert users != null;
-                assert users.getImageUrl() != null;
                 username.setText(users.getUsername());
 
                 if(users.getImageUrl().equals("default"))
                 {
-                    profilePicture.setImageResource(R.mipmap.user_ico);
+                    profilePicture.setImageResource(R.drawable.user_ico);
                 }
                 else
                 {
-                    Glide.with(getContext()).load(users.getImageUrl()).into(profilePicture);
+                   Glide.with(getContext()).load(users.getImageUrl()).into(profilePicture);
                 }
             }
 
@@ -166,7 +161,7 @@ public class ProfileFragment extends Fragment
 
                         HashMap<String, Object> hashMap = new HashMap<>();
 
-                        hashMap.put("imageUrl", myUrl);
+                        hashMap.put("imageUrl", "" + myUrl);
                         reference.updateChildren(hashMap);
 
                         progressDialog.dismiss();
@@ -174,6 +169,7 @@ public class ProfileFragment extends Fragment
                     else
                     {
                         Toast.makeText(getContext(), "Picture upload failed!", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener()
@@ -189,11 +185,12 @@ public class ProfileFragment extends Fragment
         else
         {
             Toast.makeText(getContext(), "Please select picture!", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
         }
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICTURE_REQ && resultCode == RESULT_OK && data != null && data.getData() !=null)
