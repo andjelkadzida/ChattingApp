@@ -21,6 +21,8 @@
    <string name="passwordRegistration">Password must contain at least 8 characters</string>
 
 
+    <string name="loginPhoneView">Login using phone</string>
+
     <!--Menu-->
     <string name="logout">Logout</string>
 
