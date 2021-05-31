@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +42,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -52,7 +52,7 @@ public class MessageActivity extends AppCompatActivity
 
     //Widgeti
     TextView username;
-    ImageView userImage;
+    CircleImageView userImage;
 
     RecyclerView recyclerView;
     EditText messageText;
@@ -92,12 +92,6 @@ public class MessageActivity extends AppCompatActivity
 
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
-        //Inicijalizacija widgeta
-        userImage = findViewById(R.id.userProfileImage);
-        username = findViewById(R.id.usernameV);
-        messageText = findViewById(R.id.textSend);
-        btnSend = findViewById(R.id.btnSend);
-
         //RecycleViewer
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
@@ -106,6 +100,11 @@ public class MessageActivity extends AppCompatActivity
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        //Inicijalizacija widgeta
+        userImage = findViewById(R.id.profilePicture);
+        username = findViewById(R.id.usernameV);
+        messageText = findViewById(R.id.textSend);
+        btnSend = findViewById(R.id.btnSend);
 
         intent = getIntent();
         userid = intent.getStringExtra("userid");
@@ -335,7 +334,7 @@ public class MessageActivity extends AppCompatActivity
         super.onPause();
         reference.removeEventListener(seenListener);
         statusCheck("Offline");
-        currentUser(userid);
+        currentUser("none");
     }
 
 

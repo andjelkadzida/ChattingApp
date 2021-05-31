@@ -19,6 +19,8 @@ import com.andjelkadzida.chatsome.fragments.ChatsFragment;
 import com.andjelkadzida.chatsome.fragments.ProfileFragment;
 import com.andjelkadzida.chatsome.fragments.UserFragment;
 import com.andjelkadzida.chatsome.model.Chat;
+import com.andjelkadzida.chatsome.model.Users;
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +34,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -50,8 +54,8 @@ public class MainActivity extends AppCompatActivity
         //setSupportActionBar(toolbar);
         //getSupportActionBar().setTitle("");
 
-       // ImageView profileImage = findViewById(R.id.profileImage);
-      //  TextView username = findViewById(R.id.username);
+       CircleImageView profileImage = findViewById(R.id.profileImage);
+       TextView username = findViewById(R.id.username);
 
 
         //Iz firebase baze podataka uzimam trenutno ulogovanog korisnika i smestam ga u currentUser
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity
 
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
-       /* reference.addValueEventListener(new ValueEventListener()
+        reference.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity
             {
 
             }
-        });*/
+        });
 
         //TabLayout i ViewPager
        final TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -171,7 +175,6 @@ public class MainActivity extends AppCompatActivity
             this.titles = new ArrayList<>();
         }
 
-        @NonNull
         @Override
         public Fragment getItem(int position)
         {

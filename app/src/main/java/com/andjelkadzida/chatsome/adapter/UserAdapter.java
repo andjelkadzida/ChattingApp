@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -64,12 +63,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
 
         if (user.getImageUrl().equals("default"))
         {
-            holder.imageView.setImageResource(R.drawable.user_ico);
+            holder.ProfileimageView.setImageResource(R.drawable.user_ico);
         }
         else {
             Glide.with(context)
                     .load(user.getImageUrl())
-                    .into(holder.imageView);
+                    .into(holder.ProfileimageView);
         }
 
         if(isChat)
@@ -118,14 +117,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         public TextView usersNameView, lastMessage;
-        public CircleImageView imageView, onlineView, offlineView;
+        public CircleImageView ProfileimageView, onlineView, offlineView;
 
         public ViewHolder(@NonNull View itemView)
         {
             super(itemView);
 
             usersNameView = itemView.findViewById(R.id.allUsersNameView);
-            imageView = itemView.findViewById(R.id.userImageView);
+            ProfileimageView = itemView.findViewById(R.id.profileImg);
             onlineView = itemView.findViewById(R.id.onlineView);
             offlineView = itemView.findViewById(R.id.offlineView);
             lastMessage = itemView.findViewById(R.id.lastMessage);
@@ -158,8 +157,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
                 {
                     case "default":
                         lastMsg.setText("No message");
+                        break;
                     default:
                         lastMsg.setText(latestMsg);
+                        break;
                 }
                 latestMsg = "default";
             }

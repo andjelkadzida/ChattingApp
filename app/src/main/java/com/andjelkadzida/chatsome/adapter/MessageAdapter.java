@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -113,7 +112,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             super(itemView);
 
             showMessage = itemView.findViewById(R.id.showMessage);
-            imageView = itemView.findViewById(R.id.profilePicture);
+            imageView = itemView.findViewById(R.id.profilePic);
             seenViewer = itemView.findViewById(R.id.statusSeenView);
         }
     }

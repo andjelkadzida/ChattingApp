@@ -41,8 +41,6 @@ public class ChatsFragment extends Fragment
 
     RecyclerView chatRecycler;
 
-    boolean notify = false;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
