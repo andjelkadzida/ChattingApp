@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Chatsome</string>
+    <!--App name-->
+    <string name="app_name">Chatty</string>
 
     <!--StartActivity-->
-    <string name="appName">Chatty</string>
     <string name="btnRedirectToLoginText">Login</string>
     <string name="btnRedirectToPhoneLoginText">Login using phone</string>
     <string name="btnRedirectToRegisterText">Register</string>
@@ -29,9 +29,6 @@
     <string name="searchUser">Search user...</string>
     <!--Profile fragment-->
     <string name="textView">Profile</string>
-
-    <!--Chat fragment-->
-    <string name="chatFragment">Welcome to chat fragment</string>
 
     <!--Chat item left-->
     <string name="hello">Hello</string>

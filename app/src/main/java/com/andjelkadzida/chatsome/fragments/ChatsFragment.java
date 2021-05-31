@@ -107,7 +107,6 @@ public class ChatsFragment extends Fragment
                         {
                             users.add(user);
                         }
-
                     }
                 }
 

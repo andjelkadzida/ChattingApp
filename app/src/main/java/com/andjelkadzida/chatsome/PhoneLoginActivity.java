@@ -236,7 +236,7 @@ public class PhoneLoginActivity extends AppCompatActivity
     protected void onPause()
     {
         super.onPause();
-        if(( progressDialog!=null && progressDialog.isShowing()))
+        if((progressDialog!=null && progressDialog.isShowing()))
         {
             progressDialog.dismiss();
         }

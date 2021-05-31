@@ -7,8 +7,6 @@ public class Users
     private String status;
     private String username;
 
-
-
     //Konstruktori
     public Users(String id, String imageUrl, String username, String status)
     {

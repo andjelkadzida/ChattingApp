@@ -50,17 +50,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("");
-
        CircleImageView profileImage = findViewById(R.id.profileImage);
        TextView username = findViewById(R.id.username);
 
-
         //Iz firebase baze podataka uzimam trenutno ulogovanog korisnika i smestam ga u currentUser
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
         reference.addValueEventListener(new ValueEventListener()
@@ -135,7 +129,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-
     //Funkcija Logout
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -160,7 +153,6 @@ public class MainActivity extends AppCompatActivity
         }
         return false;
     }
-
 
     //Klasa ViewPagerAdapter
     class ViewPagerAdapter extends FragmentPagerAdapter
@@ -225,5 +217,4 @@ public class MainActivity extends AppCompatActivity
         super.onPause();
         checkOnlineStatus("Offline");
     }
-
 }

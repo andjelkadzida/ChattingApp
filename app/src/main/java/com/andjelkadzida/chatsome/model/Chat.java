@@ -8,7 +8,6 @@ public class Chat
     private boolean statusSeen;
 
     //Konstruktori
-
     public Chat(String sender, String receiver, String message, boolean statusSeen)
     {
         this.sender = sender;

@@ -28,11 +28,9 @@ public class RegistrationActivity extends AppCompatActivity
     EditText usernameText, passwordText, emailText;
     Button registerButton;
 
-
     //Firebase baza konfiguracija
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -121,6 +119,4 @@ public class RegistrationActivity extends AppCompatActivity
                     }
                 });
     }
-
-
 }

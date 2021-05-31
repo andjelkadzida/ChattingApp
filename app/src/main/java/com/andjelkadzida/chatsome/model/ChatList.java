@@ -16,7 +16,6 @@ public class ChatList
     }
 
     //Getteri i setteri
-
     public String getId()
     {
         return id;

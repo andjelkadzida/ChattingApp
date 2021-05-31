@@ -28,11 +28,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     //Firebase
     FirebaseUser firebaseUser;
 
-
     public static final int MESSAGE_TYPE_LEFT = 0;
     public static final int MESSAGE_TYPE_RIGHT = 1;
-
-
 
     //Konstruktor
     public MessageAdapter(Context context, List<Chat> chats, String imageUrl)
@@ -41,7 +38,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         this.chats = chats;
         this.imageUrl = imageUrl;
     }
-
 
     @NonNull
     @Override
@@ -57,8 +53,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             View view = LayoutInflater.from(context).inflate(R.layout.chat_item_left, parent, false);
             return new MessageAdapter.ViewHolder(view);
         }
-
-
     }
 
     @Override
@@ -92,7 +86,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         {
             holder.seenViewer.setVisibility(View.GONE);
         }
-
     }
 
     @Override

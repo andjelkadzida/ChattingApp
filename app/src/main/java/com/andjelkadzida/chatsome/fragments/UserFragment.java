@@ -38,13 +38,10 @@ public class UserFragment extends Fragment
     private List<Users> users;
     private EditText searchUser;
 
-
-
     public UserFragment()
     {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.andjelkadzida.chatsome.MessageActivity;
 import com.andjelkadzida.chatsome.R;
 import com.andjelkadzida.chatsome.model.Chat;
@@ -22,11 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
@@ -38,14 +33,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
     String latestMsg;
 
     //Konstruktor
-
     public UserAdapter(Context context, List<Users> users, boolean isChat)
     {
         this.context = context;
         this.users = users;
         this.isChat = isChat;
     }
-
 
     @NonNull
     @Override
@@ -65,7 +58,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
         {
             holder.ProfileimageView.setImageResource(R.drawable.user_ico);
         }
-        else {
+        else
+        {
             Glide.with(context)
                     .load(user.getImageUrl())
                     .into(holder.ProfileimageView);
@@ -172,5 +166,4 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
             }
         });
     }
-
 }

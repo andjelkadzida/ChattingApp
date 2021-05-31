@@ -135,7 +135,6 @@ public class MessageActivity extends AppCompatActivity
                 messageText.setText("");
             }
         });
-            //messageSeen(userid);
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
@@ -198,7 +197,6 @@ public class MessageActivity extends AppCompatActivity
 
             }
         });
-
     }
 
     private void sendMessage(String sender, String receiver, String message)
@@ -214,7 +212,6 @@ public class MessageActivity extends AppCompatActivity
         ref.child("Chats").push().setValue(map);
 
         //Dodavanje korisnika u Chat fragment: Poslednji chat sa  kontaktima
-
         final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("ChatList")
                 .child(firebaseUser.getUid())
                 .child(userid);
@@ -228,7 +225,6 @@ public class MessageActivity extends AppCompatActivity
                 {
                     chatRef.child("id").setValue(userid);
                 }
-
             }
 
             @Override
@@ -300,8 +296,6 @@ public class MessageActivity extends AppCompatActivity
         });
     }
 
-
-
     //Provera statusa korisnika, tj da li je korisnik online
     private void statusCheck(String status)
     {
@@ -337,9 +331,9 @@ public class MessageActivity extends AppCompatActivity
         currentUser("none");
     }
 
-
     //Slanje obavestenja korisniku
-    private void sendNotification(String receiver, final String username, final String message){
+    private void sendNotification(String receiver, final String username, final String message)
+    {
         DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
         Query query = tokens.orderByKey().equalTo(receiver);
         query.addValueEventListener(new ValueEventListener()
