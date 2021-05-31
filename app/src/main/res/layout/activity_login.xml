@@ -27,6 +27,7 @@
 
             <EditText
                 android:id="@+id/loginMail"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
@@ -41,6 +42,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_toggle"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/loginMail"
@@ -51,6 +53,7 @@
 
                 <EditText
                     android:id="@+id/loginPass"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -68,6 +71,7 @@
 
             <TextView
                 android:id="@+id/forgotPass"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/password_toggle"
@@ -82,6 +86,7 @@
 
             <Button
                 android:id="@+id/btnLogin"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="19dp"
@@ -96,6 +101,7 @@
 
             <TextView
                 android:id="@+id/newUser"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -110,6 +116,7 @@
 
             <TextView
                 android:id="@+id/anotherLogin"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/newUser"
@@ -121,6 +128,7 @@
 
             <Button
                 android:id="@+id/btnPhoneLogin"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/anotherLogin"

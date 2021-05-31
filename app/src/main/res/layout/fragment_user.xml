@@ -6,14 +6,16 @@
     tools:context=".fragments.UserFragment">
 
     <EditText
+        android:id="@+id/searchUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:hint="@string/searchUser"
-        android:id="@+id/searchUser" />
+        android:fontFamily="sans-serif-condensed" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRecycler"
+        android:fontFamily="sans-serif-condensed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/searchUser"/>

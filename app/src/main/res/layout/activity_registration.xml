@@ -16,11 +16,12 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="32sp"
         android:textColor="#292929"
-        android:fontFamily="sans-serif"
+        android:fontFamily="sans-serif-condensed"
         android:layout_marginTop="32dp"/>
 
     <EditText
         android:id="@+id/username"
+        android:fontFamily="sans-serif-condensed"
         android:layout_width="371dp"
         android:layout_height="50dp"
         android:layout_marginTop="96dp"
@@ -33,6 +34,7 @@
 
     <EditText
         android:id="@+id/password"
+        android:fontFamily="sans-serif-condensed"
         android:layout_width="370dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -48,6 +50,7 @@
 
     <EditText
         android:id="@+id/email"
+        android:fontFamily="sans-serif-condensed"
         android:hint="@string/email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -62,6 +65,7 @@
 
     <Button
         android:id="@+id/register"
+        android:fontFamily="sans-serif-condensed"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
