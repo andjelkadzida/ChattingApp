@@ -5,15 +5,19 @@ public class Chat
     private String sender;
     private String receiver;
     private String message;
+    private String dateTimeSent;
+    private String dateTimeSeen;
     private boolean statusSeen;
 
     //Konstruktori
-    public Chat(String sender, String receiver, String message, boolean statusSeen)
+    public Chat(String sender, String receiver, String message, boolean statusSeen, String dateTimeSent, String dateTimeSeen)
     {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
         this.statusSeen = statusSeen;
+        this.dateTimeSent = dateTimeSent;
+        this.dateTimeSeen = dateTimeSeen;
     }
 
     public Chat()
@@ -59,5 +63,25 @@ public class Chat
     public void setStatusSeen(boolean statusSeen)
     {
         this.statusSeen = statusSeen;
+    }
+
+    public String getDateTimeSent()
+    {
+        return dateTimeSent;
+    }
+
+    public void setDateTimeSent(String dateTimeSent)
+    {
+        this.dateTimeSent = dateTimeSent;
+    }
+
+    public String getDateTimeSeen()
+    {
+        return dateTimeSeen;
+    }
+
+    public void setDateTimeSeen(String dateTimeSeen)
+    {
+        this.dateTimeSeen = dateTimeSeen;
     }
 }

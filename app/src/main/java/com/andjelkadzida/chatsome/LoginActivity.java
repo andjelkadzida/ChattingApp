@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity
                     progressDialog.setCanceledOnTouchOutside(true);
                     progressDialog.show();
 
-                    //Login pomogu Firebase autentifikacije
+                    //Login pomocu Firebase autentifikacije
                     firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(task -> {
                         if(task.isSuccessful())
                         {

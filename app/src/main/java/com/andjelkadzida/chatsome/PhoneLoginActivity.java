@@ -204,7 +204,6 @@ public class PhoneLoginActivity extends AppCompatActivity
                        else
                        {
                            Toast.makeText(PhoneLoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                           //progressDialog.dismiss();
                            Intent intent = new Intent(PhoneLoginActivity.this, MainActivity.class);
                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                            startActivity(intent);
