@@ -39,7 +39,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
         android:ems="10"
-        android:hint="@string/password"
+        android:hint="@string/passwordRegistration"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

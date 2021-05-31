@@ -203,8 +203,6 @@ public class PhoneLoginActivity extends AppCompatActivity
                        }
                        else
                        {
-                           String fireMsgToken = Objects.requireNonNull(task1.getResult());
-                           //databaseReference.child(currentId).child("device_token").setValue(fireMsgToken);
                            Toast.makeText(PhoneLoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
                            //progressDialog.dismiss();
                            Intent intent = new Intent(PhoneLoginActivity.this, MainActivity.class);
@@ -217,8 +215,7 @@ public class PhoneLoginActivity extends AppCompatActivity
             }
             else
             {
-                String message = task.getException().toString();
-                Toast.makeText(PhoneLoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }

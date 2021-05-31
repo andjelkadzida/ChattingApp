@@ -71,46 +71,20 @@ public class LoginActivity extends AppCompatActivity
                     firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(task -> {
                         if(task.isSuccessful())
                         {
-                            final  String currentUser = firebaseAuth.getCurrentUser().getUid();
+                            //Prosledjujem korisnika na main activity
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
 
-                            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task1 -> {
-                                if(!task1.isSuccessful())
-                                {
-
-                                }
-                                if(task1.getResult() != null)
-                                {
-                                    String token = task1.getResult();
-
-                                    databaseReference.child(currentUser).child("device_token").setValue(token).addOnCompleteListener(task2 -> {
-
-                                        if(task2.isSuccessful())
-                                        {
-                                            //Prosledjujem korisnika na main activity
-                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(intent);
-                                            finish();
-
-                                            Toast.makeText(LoginActivity.this,"User with mail " + firebaseAuth.getCurrentUser().getEmail() + " logged in successfully", Toast.LENGTH_SHORT).show();
-                                        }
-                                        else
-                                        {
-                                            Toast.makeText(LoginActivity.this, task2.getException().toString() , Toast.LENGTH_SHORT).show();
-
-                                        }
-                                        progressDialog.dismiss();
-                                    });
-                                }
-                            });
+                            Toast.makeText(LoginActivity.this,"User " + firebaseAuth.getCurrentUser().getEmail() + " logged in successfully!", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-                            Toast.makeText(LoginActivity.this, task.getException().toString() , Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Invalid e-mail or password!", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     });
-
                 }
             }
         });

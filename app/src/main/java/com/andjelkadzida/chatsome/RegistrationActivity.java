@@ -58,7 +58,7 @@ public class RegistrationActivity extends AppCompatActivity
 
         //Proveravam da li su sva polja popunjena
         //Ako je neko polje prazno, obavestavam korisnika da su sva polja obavezna
-        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password))
+        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || passwordText.getText().length()<8)
         {
             Toast.makeText(RegistrationActivity.this, "All fields are mandatory!", Toast.LENGTH_SHORT).show();
         }
