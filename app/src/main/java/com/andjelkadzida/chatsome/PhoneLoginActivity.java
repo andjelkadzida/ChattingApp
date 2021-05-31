@@ -178,6 +178,7 @@ public class PhoneLoginActivity extends AppCompatActivity
                            usersMap.put("username", username);
                            usersMap.put("imageUrl", "default");
                            usersMap.put("status", "offline");
+                           usersMap.put("search", username.toLowerCase());
                            databaseReference.setValue(usersMap).addOnCompleteListener(new OnCompleteListener<Void>()
                            {
                                @Override
@@ -202,10 +203,7 @@ public class PhoneLoginActivity extends AppCompatActivity
                        }
                        else
                        {
-                           String fireMsgToken = Objects.requireNonNull(task1.getResult());
-                           //databaseReference.child(currentId).child("device_token").setValue(fireMsgToken);
                            Toast.makeText(PhoneLoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                           //progressDialog.dismiss();
                            Intent intent = new Intent(PhoneLoginActivity.this, MainActivity.class);
                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                            startActivity(intent);
@@ -216,8 +214,7 @@ public class PhoneLoginActivity extends AppCompatActivity
             }
             else
             {
-                String message = task.getException().toString();
-                Toast.makeText(PhoneLoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }

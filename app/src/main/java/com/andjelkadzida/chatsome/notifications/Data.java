@@ -6,15 +6,11 @@ public class Data
     private String body;
     private String title;
     private String sent;
-
-
-
-
     private int icon;
 
     //Konstruktori
-
-    public Data(String user, int icon, String body, String title, String sent) {
+    public Data(String user, int icon, String body, String title, String sent)
+    {
         this.user = user;
         this.icon = icon;
         this.body = body;
@@ -29,7 +25,6 @@ public class Data
     }
 
     //Getteri i setteri
-
     public String getUser()
     {
         return user;

@@ -8,6 +8,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecycler"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

@@ -75,11 +75,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         {
             if(chat.isStatusSeen())
             {
-                holder.seenViewer.setText("Seen");
+                holder.seenViewer.setText("Seen: " + chat.getDateTimeSeen());
             }
             else
             {
-                holder.seenViewer.setText("Delivered");
+                holder.seenViewer.setText("Delivered: " + chat.getDateTimeSent());
             }
         }
         else

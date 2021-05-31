@@ -6,14 +6,20 @@
     tools:context=".fragments.UserFragment">
 
     <EditText
+        android:id="@+id/searchUser"
+        android:drawableEnd="@drawable/ic_round_person_search_24"
+        android:background="@drawable/round_search"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="4dp"
         android:hint="@string/searchUser"
-        android:id="@+id/searchUser" />
+        android:textColorHint="@color/white"
+        android:fontFamily="sans-serif-condensed-medium" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userRecycler"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/searchUser"/>

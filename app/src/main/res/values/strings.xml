@@ -18,6 +18,7 @@
     <string name="noAcc">Do not have an account? Register now</string>
     <string name="anotherLoginText">or login using</string>
     <string name="phoneLogin">Phone</string>
+   <string name="passwordRegistration">Password must contain at least 8 characters</string>
 
 
     <!--Menu-->

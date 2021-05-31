@@ -38,7 +38,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -121,10 +123,13 @@ public class MessageActivity extends AppCompatActivity
                 notify = true;
                 //Iz editText widgeta se uzima uneti tekst, konvertuje u string i pakuje u promenljivu istog tipa
                 String message = messageText.getText().toString();
+                //Datum i vreme slanja poruke
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy 'at' HH:mm 'h'");
+                String dateTimeSent = simpleDateFormat.format(new Date());
                 //Ako TextEdit nije prazan, tj ako je korisnik uneo poruku, poziva se funkcija za slanje poruke
                 if(!message.equals(""))
                 {
-                    sendMessage(firebaseUser.getUid(), userid, message);
+                    sendMessage(firebaseUser.getUid(), userid, message, dateTimeSent);
                 }
                 //Ako korisnik nije uneo poruku, a klikne na dugme za slanje poruke, dobija obavestenje da je potrebno da unese poruku
                 else
@@ -152,7 +157,7 @@ public class MessageActivity extends AppCompatActivity
                 }
                 else
                 {
-                    Glide.with(MessageActivity.this).load(user.getImageUrl()).into(userImage);
+                    Glide.with(getApplicationContext()).load(user.getImageUrl()).into(userImage);
                 }
 
                 readMessage(firebaseUser.getUid(), userid, user.getImageUrl());
@@ -184,8 +189,11 @@ public class MessageActivity extends AppCompatActivity
 
                     if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid))
                     {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy 'at' HH:mm 'h'");
+                        String dateTimeSeen = simpleDateFormat.format(new Date());
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("statusSeen", true);
+                        map.put("dateTimeSeen", dateTimeSeen);
                         dataSnapshot.getRef().updateChildren(map);
                     }
                 }
@@ -199,8 +207,9 @@ public class MessageActivity extends AppCompatActivity
         });
     }
 
-    private void sendMessage(String sender, String receiver, String message)
+    private void sendMessage(String sender, String receiver, String message, String dateTimeSent)
     {
+
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, Object> map = new HashMap<>();
@@ -208,6 +217,8 @@ public class MessageActivity extends AppCompatActivity
         map.put("receiver", receiver);
         map.put("message", message);
         map.put("statusSeen", false);
+        map.put("dateTimeSent", dateTimeSent);
+        map.put("dateTimeSeen", "");
 
         ref.child("Chats").push().setValue(map);
 
