@@ -60,9 +60,14 @@ public class RegistrationActivity extends AppCompatActivity
 
         //Proveravam da li su sva polja popunjena
         //Ako je neko polje prazno, obavestavam korisnika da su sva polja obavezna
-        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || passwordText.getText().length()<8)
+        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password))
         {
             Toast.makeText(RegistrationActivity.this, "All fields are mandatory!", Toast.LENGTH_SHORT).show();
+        }
+        //Proveravam da li je korinsik uneo password od minimum 8 karaktera
+        else if(passwordText.getText().length()<8)
+        {
+            Toast.makeText(RegistrationActivity.this, "Password must contain at least 8 characters!", Toast.LENGTH_SHORT).show();
         }
         //Ako su sva polja popunjena pozivam metodu za registraciju i prosledjujem joj parametre koje mi je dao korisnik
         else
