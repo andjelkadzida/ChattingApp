@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:hint="@string/password"
+                android:hint="@string/passwordRegistration"
                 android:inputType="textPassword"
                 android:textColorHint="@color/mint"
                 android:textAlignment="center"
