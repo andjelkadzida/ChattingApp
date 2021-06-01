@@ -97,7 +97,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext(), R.style.AlertDialogCustom);
 
                 alertDialog.setTitle("Message status");
-                alertDialog.setTitle("Message status");
+                alertDialog.setIcon(R.drawable.ic_chat);
                 alertDialog.setMessage(chat.getMessage() + "\nDelivered: " + chat.getDateTimeSent() + "\nSeen: " + chat.getDateTimeSeen());
                 alertDialog.setTitle("Message status");
                 alertDialog.setCancelable(false);
