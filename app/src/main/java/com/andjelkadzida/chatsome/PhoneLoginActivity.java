@@ -54,7 +54,7 @@ public class PhoneLoginActivity extends AppCompatActivity
         Button btnVerify = findViewById(R.id.btnVerify);
         Button btnSendCode = findViewById(R.id.btnSendCode);
 
-        ProgressDialog progressDialog = new ProgressDialog(this);
+        ProgressDialog progressDialog = new ProgressDialog(this, R.style.CustomDialog);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -72,6 +72,7 @@ public class PhoneLoginActivity extends AppCompatActivity
             else
             {
                 progressDialog.setTitle("Phone verification");
+                progressDialog.setIcon(R.drawable.ic_login);
                 progressDialog.setMessage("Please wait, phone verification in progress...");
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
@@ -223,7 +224,7 @@ public class PhoneLoginActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
-        if(( progressDialog!=null && progressDialog.isShowing()))
+        if((progressDialog!=null && progressDialog.isShowing()))
         {
             progressDialog.dismiss();
         }

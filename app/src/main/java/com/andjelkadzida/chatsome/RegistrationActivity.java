@@ -1,5 +1,6 @@
 package com.andjelkadzida.chatsome;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity
     //Firebase baza konfiguracija
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,6 +75,7 @@ public class RegistrationActivity extends AppCompatActivity
     //username tj korisnicko ce biti final  i nece moci da se menja, dok se email i password mogu regularno menjati
     private void register(final String username, String email, String password)
     {
+        progressDialog = new ProgressDialog(this, R.style.CustomDialog);
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>()
                 {
@@ -81,6 +84,13 @@ public class RegistrationActivity extends AppCompatActivity
                     {
                         if(task.isSuccessful())
                         {
+                            //Progres dijalog
+                            progressDialog.setTitle("Registration");
+                            progressDialog.setIcon(R.drawable.ic_key);
+                            progressDialog.setMessage("Registration in progress... Please wait...");
+                            progressDialog.setCanceledOnTouchOutside(true);
+                            progressDialog.show();
+
                             FirebaseUser fireUser = firebaseAuth.getCurrentUser();
                             String userId = fireUser.getUid();
 
@@ -114,10 +124,32 @@ public class RegistrationActivity extends AppCompatActivity
                             });
                         }
                         //Ako registracija ne uspe, prikazujemo korisniku obavestenje da ista nije uspela.
-                        else {
+                        else
+                        {
                             Toast.makeText(RegistrationActivity.this, "Invalid e-mail or password!", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        if((progressDialog!=null && progressDialog.isShowing()))
+        {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        if((progressDialog!=null && progressDialog.isShowing()))
+        {
+            progressDialog.dismiss();
+        }
     }
 }

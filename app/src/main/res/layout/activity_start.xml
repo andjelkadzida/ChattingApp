@@ -5,33 +5,42 @@
     android:gravity="center"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@drawable/chat_background"
     tools:context=".StartActivity">
 
     <TextView
-        android:fontFamily="sans-serif-condensed-medium"
-        android:layout_width="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center"
         android:text="@string/app_name"
-        android:textColor="@color/blue_700"
+        android:textColor="@color/mint"
         android:textAlignment="center"
-        android:textSize="36sp"
-        android:textStyle="bold"/>
+        android:textSize="50sp"/>
 
     <Button
         android:id="@+id/btnRedirectToLogin"
-        android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:textColor="#fff"
+        android:background="@drawable/round_button"
+        android:drawableEnd="@drawable/ic_login_silver"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:text="@string/login"/>
 
     <Button
         android:id="@+id/btnRegirectToPhoneLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
         android:layout_marginTop="10dp"
+        android:background="@drawable/round_button"
+        android:drawableEnd="@drawable/ic_phone"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="@string/btnRedirectToPhoneLoginText"/>
 
@@ -39,8 +48,12 @@
         android:id="@+id/btnRedirectToRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
         android:layout_marginTop="10dp"
+        android:background="@drawable/round_button"
+        android:drawableEnd="@drawable/ic_register"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="@string/btnRedirectToRegisterText"/>
 

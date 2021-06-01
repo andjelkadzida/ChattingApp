@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity
 {
@@ -44,7 +43,7 @@ public class LoginActivity extends AppCompatActivity
         EditText passEdit = findViewById(R.id.loginPass);
         Button btnLogin = findViewById(R.id.btnLogin);
         Button btnPhoneLogin = findViewById(R.id.btnPhoneLogin);
-        ProgressDialog progressDialog = new ProgressDialog(this);
+        ProgressDialog progressDialog = new ProgressDialog(this, R.style.CustomDialog);
 
         //Login korisnika tj dogadjaj koji se okida kada korisnik klikne login dugme
         btnLogin.setOnClickListener(new View.OnClickListener()
@@ -63,6 +62,7 @@ public class LoginActivity extends AppCompatActivity
                 {
                     //Progres dijalog
                     progressDialog.setTitle("Login");
+                    progressDialog.setIcon(R.drawable.ic_login);
                     progressDialog.setMessage("Logging in progress... Please wait...");
                     progressDialog.setCanceledOnTouchOutside(true);
                     progressDialog.show();
