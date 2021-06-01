@@ -116,23 +116,4 @@ public class LoginActivity extends AppCompatActivity
         Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
         startActivity(intent);
     }
-
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-
-        //Provera da li je korisnik ulogovan i ako jeste prosledjuje se na glavnu aktivnost
-        FirebaseUser loggedUser = firebaseAuth.getCurrentUser();
-
-        if(loggedUser != null)
-        {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        }
-        else
-        {
-            startActivity(new Intent(LoginActivity.this, StartActivity.class));
-        }
-    }
 }

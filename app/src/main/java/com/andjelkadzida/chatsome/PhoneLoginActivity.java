@@ -200,7 +200,7 @@ public class PhoneLoginActivity extends AppCompatActivity
                                    {
                                        Toast.makeText(PhoneLoginActivity.this, "User " + username + " login failed!", Toast.LENGTH_LONG).show();
                                    }
-                                   progressDialog.dismiss();
+                                  // progressDialog.dismiss();
                                }
                            });
                        }
@@ -239,24 +239,6 @@ public class PhoneLoginActivity extends AppCompatActivity
         if((progressDialog!=null && progressDialog.isShowing()))
         {
             progressDialog.dismiss();
-        }
-    }
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-
-        //Provera da li je korisnik ulogovan i ako jeste prosledjuje se na glavnu aktivnost
-        FirebaseUser loggedUser = firebaseAuth.getCurrentUser();
-
-        if(loggedUser != null)
-        {
-            startActivity(new Intent(PhoneLoginActivity.this, MainActivity.class));
-        }
-        else
-        {
-            startActivity(new Intent(PhoneLoginActivity.this, StartActivity.class));
         }
     }
 }

@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
+                snapshot.notify();
                 Users user = snapshot.getValue(Users.class);
                 username.setText(user.getUsername());
                 if (user!=null && user.getImageUrl() != null && user.getImageUrl().equals("default"))
@@ -194,14 +195,31 @@ public class MainActivity extends AppCompatActivity
     }
 
     //Provera da li je korisnik online
+    //Pre nego sto proverim da li je korisnik online i updateujem mu status, proveravam da li korisnik postoji u bazi
     private void checkOnlineStatus(String status)
     {
             reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
 
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("status", status);
+            reference.addListenerForSingleValueEvent(new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot)
+                {
+                    if(snapshot.exists())
+                    {
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("status", status);
 
-            reference.updateChildren(hashMap);
+                        reference.updateChildren(hashMap);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error)
+                {
+
+                }
+            });
     }
 
     @Override
