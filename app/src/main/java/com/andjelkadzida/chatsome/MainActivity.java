@@ -21,6 +21,7 @@ import com.andjelkadzida.chatsome.fragments.UserFragment;
 import com.andjelkadzida.chatsome.model.Chat;
 import com.andjelkadzida.chatsome.model.Users;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,7 +64,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
-                snapshot.notify();
                 Users user = snapshot.getValue(Users.class);
                 username.setText(user.getUsername());
                 if (user!=null && user.getImageUrl() != null && user.getImageUrl().equals("default"))

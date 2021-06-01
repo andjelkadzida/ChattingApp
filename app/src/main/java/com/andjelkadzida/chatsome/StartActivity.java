@@ -80,37 +80,40 @@ public class StartActivity extends AppCompatActivity
         //Ako je korisnik vec ulogovan aplikacija ce ga prebaciti na glavnu stranicu
         //Za svaki slucaj proveravam da li korisnik i njegovi podaci postoje u bazi ili je samo na listi autentifikovanih korisnika
         //U slucaju da ne postoji u bazi brisem ga iz autentifikovanih korisnika
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-
-        reference.addListenerForSingleValueEvent(new ValueEventListener()
+        if(firebaseUser!=null)
         {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+            reference.addListenerForSingleValueEvent(new ValueEventListener()
             {
-                if(snapshot.exists())
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot)
                 {
-                    Intent intent = new Intent(StartActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else
-                {
-                    FirebaseAuth.getInstance().getCurrentUser().delete().addOnSuccessListener(new OnSuccessListener<Void>()
+                    if(snapshot.exists())
                     {
-                        @Override
-                        public void onSuccess(Void unused)
+                        Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else
+                    {
+                        FirebaseAuth.getInstance().getCurrentUser().delete().addOnSuccessListener(new OnSuccessListener<Void>()
                         {
+                            @Override
+                            public void onSuccess(Void unused)
+                            {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error)
-            {
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error)
+                {
 
-            }
-        });
+                }
+            });
+        }
     }
 }
