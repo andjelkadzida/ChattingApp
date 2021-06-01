@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
             {
                 Users user = snapshot.getValue(Users.class);
                 username.setText(user.getUsername());
-                if(user != null && user.getImageUrl().equals("default"))
+                if(user.getImageUrl().equals("default"))
                 {
                     profileImage.setImageResource(R.drawable.user_ico);
                 }
@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity
                 //ViewPagerAdapter
                 viewPagerAdapter.addFragment(new UserFragment(), "Users");
                 viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
-
                 viewPager.setAdapter(viewPagerAdapter);
 
                 tabLayout.setupWithViewPager(viewPager);

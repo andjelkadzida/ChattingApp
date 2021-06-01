@@ -12,7 +12,9 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray">
+        android:layout_gravity="center_horizontal"
+        android:background="@color/gray"
+        app:titleTextColor="@color/white">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="40dp"
@@ -25,7 +27,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed-medium"
             android:textSize="20sp"
-            android:textColor="#FFFF"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_marginStart="25dp" />
 

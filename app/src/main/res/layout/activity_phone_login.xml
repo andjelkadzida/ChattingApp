@@ -3,8 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/chat_background"
     tools:context=".PhoneLoginActivity">
 
+    <TextView
+        android:id="@+id/phoneLoginView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/loginPhoneView"
+        android:textAlignment="center"
+        android:textColor="@color/mint"
+        android:textSize="42sp"/>
 
     <EditText
         android:id="@+id/phoneNumber"
@@ -14,12 +26,16 @@
         android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="180dp"
+        android:inputType="phone"
+        android:digits="+0123456789"
         android:padding="8dp"
-        android:textColorHint="#A6C1C1"
+        android:textColorHint="@color/mint"
         android:hint="@string/phoneNumberHint"
         android:fontFamily="sans-serif-condensed-medium"
-        android:textAllCaps="false"
-        android:textSize="17sp"
+        android:textStyle="normal"
+        android:background="@drawable/round_edit_text"
+        android:textColor="@color/mint"
+        android:textSize="20sp"
         android:textAlignment="center"/>
 
     <EditText
@@ -30,12 +46,16 @@
         android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="4dp"
+        android:inputType="phone"
+        android:digits="0123456789"
         android:padding="5dp"
         android:hint="@string/verificationCodeHint"
         android:fontFamily="sans-serif-condensed-medium"
         android:textAllCaps="false"
-        android:textSize="15sp"
-        android:textColorHint="#A6C1C1"
+        android:background="@drawable/round_edit_text"
+        android:textColor="@color/mint"
+        android:textSize="20sp"
+        android:textColorHint="@color/mint"
         android:textAlignment="center"
         android:layout_below="@+id/phoneNumber"
         android:visibility="invisible"/>
@@ -50,10 +70,12 @@
         android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="1dp"
-        android:textColor="@android:color/background_light"
-        android:textSize="19sp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:textAlignment="center"
-        android:layout_below="@+id/verificationCode"/>
+        android:layout_below="@+id/verificationCode"
+        android:drawableEnd="@drawable/ic_message"
+        android:background="@drawable/round_button"/>
 
     <Button
         android:id="@+id/btnVerify"
@@ -65,10 +87,12 @@
         android:layout_marginStart="17dp"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="1dp"
-        android:textColor="@android:color/background_light"
-        android:textSize="19sp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:textAlignment="center"
         android:layout_below="@+id/btnSendCode"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:drawableEnd="@drawable/ic_verified"
+        android:background="@drawable/round_button"/>
 
 </RelativeLayout>

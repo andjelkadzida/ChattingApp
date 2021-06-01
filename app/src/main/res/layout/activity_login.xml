@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/chat_background"
     tools:context=".LoginActivity">
 
     <ScrollView
@@ -16,14 +17,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <TextView
                 android:id="@+id/loginPic"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:scaleType="fitCenter"
-                android:layout_marginTop="45dp" />
+                android:layout_marginTop="45dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@string/login"
+                android:textAlignment="center"
+                android:textColor="@color/mint"
+                android:textSize="42sp"/>
 
             <EditText
                 android:id="@+id/loginMail"
@@ -34,11 +40,17 @@
                 android:layout_below="@+id/loginPic"
                 android:inputType="textEmailAddress"
                 android:layout_alignParentStart="true"
-                android:textColorHint="#A6C1C1"
-                android:layout_marginTop="25dp"
+                android:textColorHint="@color/mint"
+                android:textAlignment="center"
+                android:textColor="@color/mint"
+                android:textStyle="normal"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="17dp"
                 android:layout_marginRight="17dp"
-                android:padding="4dp" />
+                android:padding="4dp"
+                android:drawableEnd="@drawable/ic_email"
+                android:background="@drawable/round_edit_text"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_toggle"
@@ -46,27 +58,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/loginMail"
+                android:textColorHint="@color/mint"
+                android:textAlignment="center"
                 tools:layout_editor_absoluteX="92dp"
                 tools:layout_editor_absoluteY="248dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
                 app:passwordToggleEnabled="true"
-                app:boxBackgroundColor="@android:color/transparent">
+                app:boxBackgroundColor="@android:color/transparent"
+                app:passwordToggleTint="@drawable/password_toggle_color"
+                app:hintTextColor="@color/mint">
 
                 <EditText
                     android:id="@+id/loginPass"
                     android:fontFamily="sans-serif-condensed-medium"
-                    android:textSize="15sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/loginMail"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:textColorHint="#A6C1C1"
-                    android:layout_marginTop="10dp"
+                    android:textColorHint="@color/mint"
+                    android:textAlignment="center"
+                    android:textColor="@color/mint"
+                    android:textStyle="normal"
+                    android:textSize="20sp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="17dp"
                     android:layout_marginRight="17dp"
                     android:padding="4dp"
-                    android:gravity="bottom"/>
+                    android:gravity="center_horizontal|bottom"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,7 +105,9 @@
                 android:layout_marginEnd="23dp"
                 android:text="@string/forgotPass"
                 android:textAlignment="textEnd"
-                android:textSize="17sp"
+                android:textSize="15sp"
+                android:textColor="@color/mint"
+                android:textStyle="normal"
                 android:onClick="resetPassword"/>
 
             <Button
@@ -97,8 +122,11 @@
                 android:text="@string/btnLoginText"
                 android:textAllCaps="false"
                 android:layout_below="@+id/forgotPass"
-                android:textColor="@android:color/background_light"
-                android:textSize="24sp" />
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:drawableEnd="@drawable/ic_lock_open"
+                android:background="@drawable/round_button"/>
 
             <TextView
                 android:id="@+id/newUser"
@@ -108,7 +136,9 @@
                 android:layout_marginTop="2dp"
                 android:textAlignment="center"
                 android:layout_alignParentStart="true"
-                android:textSize="17sp"
+                android:textSize="15sp"
+                android:textColor="@color/mint"
+                android:textStyle="normal"
                 android:layout_below="@+id/btnLogin"
                 android:text="@string/noAcc"
                 android:layout_marginStart="15dp"
@@ -125,7 +155,9 @@
                 android:fontFamily="sans-serif-condensed-medium"
                 android:text="@string/anotherLoginText"
                 android:textAlignment="center"
-                android:textSize="17sp" />
+                android:textSize="15sp"
+                android:textColor="@color/mint"
+                android:textStyle="normal"/>
 
             <Button
                 android:id="@+id/btnPhoneLogin"
@@ -139,6 +171,11 @@
                 android:layout_marginRight="19dp"
                 android:padding="4dp"
                 android:text="@string/phoneLogin"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:background="@drawable/round_button"
+                android:drawableRight="@drawable/ic_phone"
+                android:textColor="@color/white"
                 android:layout_centerInParent="true"/>
 
         </RelativeLayout>

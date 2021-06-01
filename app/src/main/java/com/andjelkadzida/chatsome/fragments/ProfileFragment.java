@@ -127,8 +127,10 @@ public class ProfileFragment extends Fragment
 
     private void uploadPicture()
     {
-        final ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Uploading");
+        final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.CustomDialog);
+        progressDialog.setTitle("Picture upload");
+        progressDialog.setMessage("Your picture is uploading... Please wait...");
+        progressDialog.setIcon(R.drawable.ic_upload);
         progressDialog.show();
 
         if(pictureUri != null)

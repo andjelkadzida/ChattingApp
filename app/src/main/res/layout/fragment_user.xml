@@ -7,7 +7,7 @@
 
     <EditText
         android:id="@+id/searchUser"
-        android:drawableEnd="@drawable/ic_round_person_search_24"
+        android:drawableEnd="@drawable/ic_person_search"
         android:background="@drawable/round_search"
         android:textColor="@color/white"
         android:layout_width="match_parent"

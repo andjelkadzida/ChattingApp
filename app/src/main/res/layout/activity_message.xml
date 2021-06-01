@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="clip_vertical|start"
                 android:layout_marginStart="30dp"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
         </androidx.appcompat.widget.Toolbar>
@@ -58,7 +59,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
+        android:background="@color/gray"
         android:padding="5dp"
         android:layout_alignParentBottom="true">
 
@@ -69,12 +70,14 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/btnSend"
-            android:background="@color/white"
             android:hint="@string/typeHint"
+            android:textColorHint="@color/mint"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:autofillHints=""
             android:inputType="textMultiLine"
             android:maxLines="50"
-            android:maxLength="2000"/>
+            android:maxLength="2000" />
 
         <ImageButton
             android:id="@+id/btnSend"
@@ -82,7 +85,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/ic_send"
+            android:background="@drawable/send"
             android:contentDescription="@string/sendIco"/>
 
     </RelativeLayout>
