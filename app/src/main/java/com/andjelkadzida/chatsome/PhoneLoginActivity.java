@@ -241,4 +241,22 @@ public class PhoneLoginActivity extends AppCompatActivity
             progressDialog.dismiss();
         }
     }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        //Provera da li je korisnik ulogovan i ako jeste prosledjuje se na glavnu aktivnost
+        FirebaseUser loggedUser = firebaseAuth.getCurrentUser();
+
+        if(loggedUser != null)
+        {
+            startActivity(new Intent(PhoneLoginActivity.this, MainActivity.class));
+        }
+        else
+        {
+            startActivity(new Intent(PhoneLoginActivity.this, StartActivity.class));
+        }
+    }
 }

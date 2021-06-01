@@ -53,18 +53,11 @@ public class MainActivity extends AppCompatActivity
        CircleImageView profileImage = findViewById(R.id.profileImage);
        TextView username = findViewById(R.id.username);
 
-
-
         //Iz firebase baze podataka uzimam trenutno ulogovanog korisnika i smestam ga u currentUser
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(currentUser==null)
-        {
-            Intent intent = new Intent(MainActivity.this, StartActivity.class);
-            startActivity(intent);
-        }
-
         reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
+
         reference.addValueEventListener(new ValueEventListener()
         {
             @Override
@@ -72,7 +65,7 @@ public class MainActivity extends AppCompatActivity
             {
                 Users user = snapshot.getValue(Users.class);
                 username.setText(user.getUsername());
-                if(user.getImageUrl().equals("default"))
+                if (user!=null && user.getImageUrl() != null && user.getImageUrl().equals("default"))
                 {
                     profileImage.setImageResource(R.drawable.user_ico);
                 }

@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment
                 Users users = snapshot.getValue(Users.class);
                 username.setText(users.getUsername());
 
-                if(users.getImageUrl().equals("default"))
+                if(users!=null && users.getImageUrl() != null && users.getImageUrl().equals("default"))
                 {
                     profilePicture.setImageResource(R.drawable.user_ico);
                 }
