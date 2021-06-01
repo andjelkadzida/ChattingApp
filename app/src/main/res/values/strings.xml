@@ -38,6 +38,7 @@
     <string name="typeHint">Type your message...</string>
     <string name="sendIco">Send icon</string>
     <string name="profilePicture">Profile picture</string>
+    <string name="btnOk">OK</string>
 
     <!--PhoneLoginActivity-->
     <string name="btnVerifyText">Verify</string>
