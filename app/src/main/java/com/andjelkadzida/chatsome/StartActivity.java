@@ -2,6 +2,7 @@ package com.andjelkadzida.chatsome;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -82,6 +83,9 @@ public class StartActivity extends AppCompatActivity
         //U slucaju da ne postoji u bazi brisem ga iz autentifikovanih korisnika
         if(firebaseUser!=null)
         {
+            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
             reference.addListenerForSingleValueEvent(new ValueEventListener()
@@ -91,9 +95,6 @@ public class StartActivity extends AppCompatActivity
                 {
                     if(snapshot.exists())
                     {
-                        Intent intent = new Intent(StartActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
                     else
                     {
@@ -102,7 +103,7 @@ public class StartActivity extends AppCompatActivity
                             @Override
                             public void onSuccess(Void unused)
                             {
-
+                                StartActivity.super.onStart();
                             }
                         });
                     }

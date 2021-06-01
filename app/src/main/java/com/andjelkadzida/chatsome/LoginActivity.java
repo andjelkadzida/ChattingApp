@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity
                     //Progres dijalog
                     progressDialog.setTitle("Login");
                     progressDialog.setIcon(R.drawable.ic_login);
-                    progressDialog.setMessage("Logging in progress... Please wait...");
+                    progressDialog.setMessage("Logging in progress... \nPlease wait...");
                     progressDialog.setCanceledOnTouchOutside(true);
                     progressDialog.show();
 
@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity
                     firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(task -> {
                         if(task.isSuccessful())
                         {
+                            progressDialog.dismiss();
                             //Prosledjujem korisnika na main activity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
