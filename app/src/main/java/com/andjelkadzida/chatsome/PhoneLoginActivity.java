@@ -122,10 +122,11 @@ public class PhoneLoginActivity extends AppCompatActivity
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e)
             {
-                Toast.makeText(PhoneLoginActivity.this, "Invalid phone number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, "Phone number " + phoneNumberEdit.getText().toString() + " is not valid!", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
-                btnSendCode.setVisibility(View.INVISIBLE);
-                phoneNumberEdit.setVisibility(View.INVISIBLE);
+                phoneNumberEdit.setText("");
+                btnSendCode.setVisibility(View.VISIBLE);
+                phoneNumberEdit.setVisibility(View.VISIBLE);
                 btnVerify.setVisibility(View.INVISIBLE);
                 verificationCodeEdit.setVisibility(View.INVISIBLE);
             }
@@ -197,8 +198,9 @@ public class PhoneLoginActivity extends AppCompatActivity
                                    }
                                    else
                                    {
-                                       Toast.makeText(PhoneLoginActivity.this, "Sranje", Toast.LENGTH_LONG).show();
+                                       Toast.makeText(PhoneLoginActivity.this, "User " + username + " login failed!", Toast.LENGTH_LONG).show();
                                    }
+                                   progressDialog.dismiss();
                                }
                            });
                        }
@@ -215,7 +217,7 @@ public class PhoneLoginActivity extends AppCompatActivity
             }
             else
             {
-                Toast.makeText(PhoneLoginActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, "Phone number verification failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }
