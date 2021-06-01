@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
             {
                 Users user = snapshot.getValue(Users.class);
                 username.setText(user.getUsername());
-                if (user!=null && user.getImageUrl() != null && user.getImageUrl().equals("default"))
+                if (user.getImageUrl() != null && user.getImageUrl().equals("default"))
                 {
                     profileImage.setImageResource(R.drawable.user_ico);
                 }
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
 
     //Provera da li je korisnik online
     //Pre nego sto proverim da li je korisnik online i updateujem mu status, proveravam da li korisnik postoji u bazi
-    public void checkOnlineStatus(String status)
+    private void checkOnlineStatus(String status)
     {
             reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
 

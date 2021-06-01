@@ -308,7 +308,15 @@ public class MessageActivity extends AppCompatActivity
             }
         });
     }
+    private void checkOnlineStatus(String status)
+    {
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        reference.updateChildren(hashMap);
+    }
 
     private void currentUser(String userid)
     {
@@ -321,7 +329,7 @@ public class MessageActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        mainActivity.checkOnlineStatus("Online");
+        checkOnlineStatus("Online");
         currentUser(userid);
     }
 
@@ -330,7 +338,7 @@ public class MessageActivity extends AppCompatActivity
     {
         super.onPause();
         reference.removeEventListener(seenListener);
-        mainActivity.checkOnlineStatus("Online");
+        checkOnlineStatus("Offline");
         currentUser("none");
     }
 
