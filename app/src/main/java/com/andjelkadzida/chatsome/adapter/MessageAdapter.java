@@ -1,12 +1,14 @@
 package com.andjelkadzida.chatsome.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andjelkadzida.chatsome.R;
@@ -86,6 +88,31 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         {
             holder.seenViewer.setVisibility(View.GONE);
         }
+
+        holder.showMessage.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext(), R.style.AlertDialogCustom);
+
+                alertDialog.setTitle("Message status");
+                alertDialog.setTitle("Message status");
+                alertDialog.setMessage(chat.getMessage() + "\nDelivered: " + chat.getDateTimeSent() + "\nSeen: " + chat.getDateTimeSeen());
+                alertDialog.setTitle("Message status");
+                alertDialog.setCancelable(false);
+                alertDialog.setPositiveButton(R.string.btnOk, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                       dialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+                return true;
+            }
+        });
     }
 
     @Override
