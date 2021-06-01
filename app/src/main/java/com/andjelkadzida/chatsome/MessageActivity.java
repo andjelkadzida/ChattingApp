@@ -74,6 +74,8 @@ public class MessageActivity extends AppCompatActivity
 
     APIService apiService;
 
+    MainActivity mainActivity = new MainActivity();
+
     boolean notify = false;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -307,16 +309,6 @@ public class MessageActivity extends AppCompatActivity
         });
     }
 
-    //Provera statusa korisnika, tj da li je korisnik online
-    private void statusCheck(String status)
-    {
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("status", status);
-
-        reference.updateChildren(hashMap);
-    }
 
     private void currentUser(String userid)
     {
@@ -329,7 +321,7 @@ public class MessageActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        statusCheck("Online");
+        mainActivity.checkOnlineStatus("Online");
         currentUser(userid);
     }
 
@@ -338,7 +330,7 @@ public class MessageActivity extends AppCompatActivity
     {
         super.onPause();
         reference.removeEventListener(seenListener);
-        statusCheck("Offline");
+        mainActivity.checkOnlineStatus("Online");
         currentUser("none");
     }
 

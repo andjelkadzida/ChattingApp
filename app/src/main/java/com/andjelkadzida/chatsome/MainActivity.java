@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
 
     //Provera da li je korisnik online
     //Pre nego sto proverim da li je korisnik online i updateujem mu status, proveravam da li korisnik postoji u bazi
-    private void checkOnlineStatus(String status)
+    public void checkOnlineStatus(String status)
     {
             reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
 
