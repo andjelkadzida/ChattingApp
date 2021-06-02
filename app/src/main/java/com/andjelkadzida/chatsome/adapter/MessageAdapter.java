@@ -99,7 +99,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 alertDialog.setTitle("Message status");
                 alertDialog.setIcon(R.drawable.ic_chat);
                 alertDialog.setMessage(chat.getMessage() + "\nDelivered: " + chat.getDateTimeSent() + "\nSeen: " + chat.getDateTimeSeen());
-                alertDialog.setTitle("Message status");
                 alertDialog.setCancelable(false);
                 alertDialog.setPositiveButton(R.string.btnOk, new DialogInterface.OnClickListener()
                 {

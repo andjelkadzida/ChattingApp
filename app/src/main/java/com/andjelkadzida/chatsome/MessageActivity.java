@@ -74,8 +74,6 @@ public class MessageActivity extends AppCompatActivity
 
     APIService apiService;
 
-    MainActivity mainActivity = new MainActivity();
-
     boolean notify = false;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
