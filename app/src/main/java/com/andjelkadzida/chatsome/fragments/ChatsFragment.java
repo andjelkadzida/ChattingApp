@@ -29,11 +29,9 @@ import java.util.List;
 
 public class ChatsFragment extends Fragment
 {
-
     private UserAdapter userAdapter;
     private List<Users> users;
 
-    //Firebase
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
 
@@ -87,7 +85,6 @@ public class ChatsFragment extends Fragment
 
     private void chatList()
     {
-        //Getting all recent chats
         users = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         databaseReference.addValueEventListener(new ValueEventListener()

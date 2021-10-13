@@ -40,7 +40,6 @@ public class UserFragment extends Fragment
 
     public UserFragment()
     {
-        // Required empty public constructor
     }
 
     @Override
@@ -54,7 +53,7 @@ public class UserFragment extends Fragment
 
         users = new ArrayList<>();
         readUsers();
-        //Pretraga korisnika
+
         searchUser = view.findViewById(R.id.searchUser);
         searchUser.addTextChangedListener(new TextWatcher()
         {

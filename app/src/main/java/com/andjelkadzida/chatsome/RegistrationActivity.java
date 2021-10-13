@@ -25,11 +25,9 @@ import java.util.HashMap;
 public class RegistrationActivity extends AppCompatActivity
 {
 
-    //Widgeti iz xml fajla
     EditText usernameText, passwordText, emailText;
     Button registerButton;
 
-    //Firebase baza konfiguracija
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     ProgressDialog progressDialog;
@@ -40,44 +38,34 @@ public class RegistrationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        //Inicijalizacija widgeta
         usernameText = findViewById(R.id.username);
         passwordText = findViewById(R.id.password);
         emailText = findViewById(R.id.email);
         registerButton = findViewById(R.id.register);
 
-        //Firebase autentifikacija
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    //Povezujemo metodu za registraciju sa dugmetom za registraciju
     public void RegisterClick(View view)
     {
-        //Za svaki editText kreiramo string u koji ubacujem vrednosti koje je korisnik uneo u polja
         String username = usernameText.getText().toString();
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
-        //Proveravam da li su sva polja popunjena
-        //Ako je neko polje prazno, obavestavam korisnika da su sva polja obavezna
         if(TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password))
         {
             Toast.makeText(RegistrationActivity.this, "All fields are mandatory!", Toast.LENGTH_SHORT).show();
         }
-        //Proveravam da li je korinsik uneo password od minimum 8 karaktera
         else if(passwordText.getText().length()<8)
         {
             Toast.makeText(RegistrationActivity.this, "Password must contain at least 8 characters!", Toast.LENGTH_SHORT).show();
         }
-        //Ako su sva polja popunjena pozivam metodu za registraciju i prosledjujem joj parametre koje mi je dao korisnik
         else
         {
             register(username, email, password);
         }
     }
 
-    //Metoda za registraciju
-    //username tj korisnicko ce biti final  i nece moci da se menja, dok se email i password mogu regularno menjati
     private void register(final String username, String email, String password)
     {
         progressDialog = new ProgressDialog(this, R.style.CustomDialog);
@@ -89,7 +77,6 @@ public class RegistrationActivity extends AppCompatActivity
                     {
                         if(task.isSuccessful())
                         {
-                            //Progres dijalog
                             progressDialog.setTitle("Registration");
                             progressDialog.setIcon(R.drawable.ic_key);
                             progressDialog.setMessage("Registration in progress... Please wait...");
@@ -101,7 +88,6 @@ public class RegistrationActivity extends AppCompatActivity
 
                             databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
-                            //HashMap
                             HashMap<String, String> usersMap = new HashMap<>();
                             usersMap.put("id", userId);
                             usersMap.put("username", username);
@@ -109,7 +95,6 @@ public class RegistrationActivity extends AppCompatActivity
                             usersMap.put("status", "offline");
                             usersMap.put("search", username.toLowerCase());
 
-                            //Pokretanje glavne aktivnosti nakon uspesne registracije
                             databaseReference.setValue(usersMap).addOnCompleteListener(new OnCompleteListener<Void>()
                             {
                                 @Override
@@ -117,10 +102,7 @@ public class RegistrationActivity extends AppCompatActivity
                                 {
                                    if(task.isSuccessful())
                                    {
-                                       //Pokretanje glavne aktivnosti koriscenjem Intenta
-                                       //Kreiramo instancu klase intent
                                        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                                       //Metodi startActivity prosledjujemo instancu klase Intent koju smo kreirali
                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                        startActivity(intent);
                                        finish();
@@ -128,7 +110,6 @@ public class RegistrationActivity extends AppCompatActivity
                                 }
                             });
                         }
-                        //Ako registracija ne uspe, prikazujemo korisniku obavestenje da ista nije uspela.
                         else
                         {
                             Toast.makeText(RegistrationActivity.this, "Invalid e-mail or password!", Toast.LENGTH_SHORT).show();

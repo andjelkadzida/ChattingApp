@@ -2,7 +2,6 @@ package com.andjelkadzida.chatsome;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,7 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 
 public class StartActivity extends AppCompatActivity
 {
@@ -37,7 +35,6 @@ public class StartActivity extends AppCompatActivity
         Button btnRedirectToRegister = findViewById(R.id.btnRedirectToRegister);
         Button btnRedirectToPhoneLogin = findViewById(R.id.btnRegirectToPhoneLogin);
 
-        //Redirekcija korisnika na login stranicu
         btnRedirectToLogin.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -48,7 +45,6 @@ public class StartActivity extends AppCompatActivity
             }
         });
 
-        //Redirekcija korisnika na stranicu za login koriscenjem mobilnog telefona
         btnRedirectToPhoneLogin.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -59,7 +55,6 @@ public class StartActivity extends AppCompatActivity
             }
         });
 
-        //Redirekcija korisnika na stranicu za registraciju
         btnRedirectToRegister.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -78,9 +73,7 @@ public class StartActivity extends AppCompatActivity
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        //Ako je korisnik vec ulogovan aplikacija ce ga prebaciti na glavnu stranicu
-        //Za svaki slucaj proveravam da li korisnik i njegovi podaci postoje u bazi ili je samo na listi autentifikovanih korisnika
-        //U slucaju da ne postoji u bazi brisem ga iz autentifikovanih korisnika
+        //U slucaju da korisnik ne postoji u bazi brisem ga iz autentifikovanih korisnika
         if(firebaseUser!=null)
         {
             Intent intent = new Intent(StartActivity.this, MainActivity.class);

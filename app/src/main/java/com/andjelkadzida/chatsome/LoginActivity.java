@@ -13,17 +13,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity
 {
-
-    //Firebase
     FirebaseAuth firebaseAuth;
 
-    //Db ref
     DatabaseReference databaseReference;
 
     @Override
@@ -32,11 +28,9 @@ public class LoginActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //Firebase
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        //Inicijalizacija widgeta
         TextView forgotPass = findViewById(R.id.forgotPass);
         TextView newAcc = findViewById(R.id.newUser);
         EditText emailEdit = findViewById(R.id.loginMail);
@@ -67,12 +61,11 @@ public class LoginActivity extends AppCompatActivity
                     progressDialog.setCanceledOnTouchOutside(true);
                     progressDialog.show();
 
-                    //Login pomocu Firebase autentifikacije
                     firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(task -> {
                         if(task.isSuccessful())
                         {
                             progressDialog.dismiss();
-                            //Prosledjujem korisnika na main activity
+
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
@@ -90,8 +83,7 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
-        //Dogadjaj koji se okida kada korisnik izabere da se loguje preko broja mobilnog telefona
-        //Koriscenjem intenta se prosledjuje na aktivnost PhoneLogin.
+
         btnPhoneLogin.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -104,14 +96,12 @@ public class LoginActivity extends AppCompatActivity
 
     }
 
-    //Prosledjivanje korisnika na stranicu za registraciju ukoliko izabere opciju da nema nalog
     public void redirectToRegister(View view)
     {
         Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(intent);
     }
 
-    //Dogadjaj koji se okida u slucaju da korisnik izabere da je zaboravio svoju sifru
     public void resetPassword(View view)
     {
         Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);

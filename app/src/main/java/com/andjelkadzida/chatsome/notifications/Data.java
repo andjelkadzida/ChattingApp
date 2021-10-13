@@ -8,7 +8,6 @@ public class Data
     private String sent;
     private int icon;
 
-    //Konstruktori
     public Data(String user, int icon, String body, String title, String sent)
     {
         this.user = user;

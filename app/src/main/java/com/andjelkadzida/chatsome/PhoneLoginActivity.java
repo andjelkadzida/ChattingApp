@@ -31,12 +31,8 @@ import java.util.concurrent.TimeUnit;
 
 public class PhoneLoginActivity extends AppCompatActivity
 {
-
-    //Phone provajder
     PhoneAuthProvider.OnVerificationStateChangedCallbacks onVerificationStateChangedCallbacks;
-    //Firebase
     FirebaseAuth firebaseAuth;
-    //Db reference
     DatabaseReference databaseReference;
 
     String verificationId;
@@ -87,7 +83,7 @@ public class PhoneLoginActivity extends AppCompatActivity
             }
         });
 
-        //Dogadjaj koji se okida kada korisnik unese verifikacioni kod i klikne na udgme Verify
+        //Dogadjaj koji se okida kada korisnik unese verifikacioni kod i klikne na dugme Verify
         btnVerify.setOnClickListener(v -> {
 
             btnSendCode.setVisibility(View.INVISIBLE);
@@ -104,7 +100,6 @@ public class PhoneLoginActivity extends AppCompatActivity
                 progressDialog.setTitle("Code verification");
                 progressDialog.setMessage("Please wait, code verification in progress...");
                 progressDialog.setCanceledOnTouchOutside(false);
-               // progressDialog.show();
 
                 PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, verificationCode);
                 signInWithPhoneCredentials(phoneAuthCredential);
@@ -174,7 +169,6 @@ public class PhoneLoginActivity extends AppCompatActivity
                            String username = task.getResult().getUser().getPhoneNumber();
                            databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
-                           //HashMap
                            HashMap<String, String> usersMap = new HashMap<>();
                            usersMap.put("id", userId);
                            usersMap.put("username", username);
@@ -188,10 +182,7 @@ public class PhoneLoginActivity extends AppCompatActivity
                                {
                                    if(task.isSuccessful())
                                    {
-                                       //Pokretanje glavne aktivnosti koriscenjem Intenta
-                                       //Kreiramo instancu klase intent
                                        Intent intent = new Intent(PhoneLoginActivity.this, MainActivity.class);
-                                       //Metodi startActivity prosledjujemo instancu klase Intent koju smo kreirali
                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                        startActivity(intent);
                                        finish();
@@ -200,7 +191,6 @@ public class PhoneLoginActivity extends AppCompatActivity
                                    {
                                        Toast.makeText(PhoneLoginActivity.this, "User " + username + " login failed!", Toast.LENGTH_LONG).show();
                                    }
-                                  // progressDialog.dismiss();
                                }
                            });
                        }

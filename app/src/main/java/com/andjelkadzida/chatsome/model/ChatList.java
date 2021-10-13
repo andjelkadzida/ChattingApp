@@ -4,7 +4,6 @@ public class ChatList
 {
     private String id;
 
-    //Konstruktori
     public ChatList(String id)
     {
         this.id = id;
@@ -15,7 +14,6 @@ public class ChatList
 
     }
 
-    //Getteri i setteri
     public String getId()
     {
         return id;

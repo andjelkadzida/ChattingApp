@@ -8,7 +8,6 @@ public class Users
     private String username;
     private String search;
 
-    //Konstruktori
     public Users(String id, String imageUrl, String username, String status, String search)
     {
         this.id = id;
@@ -22,7 +21,6 @@ public class Users
     {
     }
 
-    //Getteri i setteri
     public String getId()
     {
         return id;

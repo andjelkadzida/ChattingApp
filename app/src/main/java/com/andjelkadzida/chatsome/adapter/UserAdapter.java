@@ -32,7 +32,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
 
     String latestMsg;
 
-    //Konstruktor
     public UserAdapter(Context context, List<Users> users, boolean isChat)
     {
         this.context = context;

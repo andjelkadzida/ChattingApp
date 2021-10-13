@@ -51,8 +51,6 @@ import retrofit2.Callback;
 
 public class MessageActivity extends AppCompatActivity
 {
-
-    //Widgeti
     TextView username;
     CircleImageView userImage;
 
@@ -60,7 +58,6 @@ public class MessageActivity extends AppCompatActivity
     EditText messageText;
     ImageButton btnSend;
 
-    //Firebase, databseReference i intent
     FirebaseUser firebaseUser;
     DatabaseReference reference;
     Intent intent;
@@ -94,7 +91,6 @@ public class MessageActivity extends AppCompatActivity
 
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
-        //RecycleViewer
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
 
@@ -102,7 +98,6 @@ public class MessageActivity extends AppCompatActivity
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        //Inicijalizacija widgeta
         userImage = findViewById(R.id.profilePicture);
         username = findViewById(R.id.usernameV);
         messageText = findViewById(R.id.textSend);
@@ -111,22 +106,19 @@ public class MessageActivity extends AppCompatActivity
         intent = getIntent();
         userid = intent.getStringExtra("userid");
 
-        //Uzimanje treuntog korisnika
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        //Implementiranje dugmeta za slanje poruke
         btnSend.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 notify = true;
-                //Iz editText widgeta se uzima uneti tekst, konvertuje u string i pakuje u promenljivu istog tipa
                 String message = messageText.getText().toString();
-                //Datum i vreme slanja poruke
+
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy 'at' HH:mm 'h'");
                 String dateTimeSent = simpleDateFormat.format(new Date());
-                //Ako TextEdit nije prazan, tj ako je korisnik uneo poruku, poziva se funkcija za slanje poruke
+
                 if(!message.equals(""))
                 {
                     sendMessage(firebaseUser.getUid(), userid, message, dateTimeSent);
@@ -136,7 +128,6 @@ public class MessageActivity extends AppCompatActivity
                 {
                     Toast.makeText(MessageActivity.this, "Enter your message...", Toast.LENGTH_SHORT).show();
                 }
-                //Nakon sto je poruka poslata, EditText se prazni i spreman je za unos nove poruke
                 messageText.setText("");
             }
         });
@@ -173,7 +164,6 @@ public class MessageActivity extends AppCompatActivity
 
     }
 
-    //Metoda koja proverava da li je korisnik procitao poruku
     private void  messageSeen(final String userid)
     {
         reference = FirebaseDatabase.getInstance().getReference("Chats");
@@ -340,7 +330,7 @@ public class MessageActivity extends AppCompatActivity
         currentUser("none");
     }
 
-    //Slanje obavestenja korisniku
+    /**Slanje obavestenja; need fix**/
     private void sendNotification(String receiver, final String username, final String message)
     {
         DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");

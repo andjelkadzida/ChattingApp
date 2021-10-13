@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +20,6 @@ import com.andjelkadzida.chatsome.fragments.UserFragment;
 import com.andjelkadzida.chatsome.model.Chat;
 import com.andjelkadzida.chatsome.model.Users;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,7 +39,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity
 {
 
-    //Firebase
     FirebaseUser currentUser;
     DatabaseReference reference;
 
@@ -84,7 +81,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        //TabLayout i ViewPager
        final TabLayout tabLayout = findViewById(R.id.tabLayout);
        final ViewPager viewPager = findViewById(R.id.viewPager);
 
@@ -114,7 +110,6 @@ public class MainActivity extends AppCompatActivity
                     viewPagerAdapter.addFragment(new ChatsFragment(), "("+unread+") Chats");
                 }
 
-                //ViewPagerAdapter
                 viewPagerAdapter.addFragment(new UserFragment(), "Users");
                 viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
                 viewPager.setAdapter(viewPagerAdapter);
@@ -130,7 +125,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    //Funkcija Logout
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -138,10 +132,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    //U slucaju da korisnik u meniju izabere opciju logout
-    //Iz firebase baze pomocu FirebaseAuth klase uzimam instancu i korisnim funkciju za odjavljivanje
-    //Nakon sto se korisnik odjavi, pokrecem novu aktivnost tako sto kreiram instancu klase intent
-    //Korisnika iz Main tj glavne aktivnosti preusmeravam na Login aktivnost.
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
     {
@@ -155,7 +145,6 @@ public class MainActivity extends AppCompatActivity
         return false;
     }
 
-    //Klasa ViewPagerAdapter
     class ViewPagerAdapter extends FragmentPagerAdapter
     {
         private final ArrayList<Fragment> fragments;
@@ -194,8 +183,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //Provera da li je korisnik online
-    //Pre nego sto proverim da li je korisnik online i updateujem mu status, proveravam da li korisnik postoji u bazi
     private void checkOnlineStatus(String status)
     {
             reference = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());

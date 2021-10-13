@@ -4,7 +4,6 @@ public class Token
 {
     String token;
 
-    //Konstruktori
     public Token(String token)
     {
         this.token = token;
@@ -15,7 +14,6 @@ public class Token
 
     }
 
-    //Getteri i setteri
     public String getToken()
     {
         return token;

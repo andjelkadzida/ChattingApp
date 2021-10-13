@@ -9,7 +9,6 @@ public class Chat
     private String dateTimeSeen;
     private boolean statusSeen;
 
-    //Konstruktori
     public Chat(String sender, String receiver, String message, boolean statusSeen, String dateTimeSent, String dateTimeSeen)
     {
         this.sender = sender;
@@ -24,7 +23,6 @@ public class Chat
     {
     }
 
-    //Getteri i setteri
     public String getSender()
     {
         return sender;
