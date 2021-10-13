@@ -174,7 +174,7 @@
                 android:textSize="20sp"
                 android:textAllCaps="false"
                 android:background="@drawable/round_button"
-                android:drawableRight="@drawable/ic_phone"
+                android:drawableEnd="@drawable/ic_phone"
                 android:textColor="@color/white"
                 android:layout_centerInParent="true"/>
 
