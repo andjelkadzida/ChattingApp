@@ -53,8 +53,8 @@
     <string name="insertVerificationCode">Please insert verification code you received!</string>
     <string name="codeVerification">Code verification</string>
     <string name="codeVerificationInProgress">Please wait, code verification in progress...</string>
-    <string name="phoneNumber">Phone number </string>
-    <string name="notValid"> is not valid!</string>
+    <string name="phoneNumber">Phone number&#160;</string>
+    <string name="notValid">&#160;is not valid!</string>
     <string name="verificationSent">Verification code sent on phone number: </string>
     <string name="loginFailed"> login failed!</string>
     <string name="successLogin">Logged in successfully!</string>
@@ -64,8 +64,8 @@
     <string name="loginInProgress">Logging in progress...\nPlease wait...</string>
     <string name="mandatoryFields">All fields are mandatory</string>
     <string name="invalidMailOrPass">Invalid e-mail or password!</string>
-    <string name="user">User </string>
-    <string name="successfulLogin"> logged in successfully!</string>
+    <string name="user">User&#160;</string>
+    <string name="successfulLogin">&#160;logged in successfully!</string>
 
     <!--MainActivity-->
     <string name="users">Users</string>
@@ -77,8 +77,8 @@
     <string name="checkInbox">Please check your inbox!</string>
 
     <!--MessageAdapter-->
-    <string name="delivered">Delivered: </string>
-    <string name="seen">Seen: </string>
+    <string name="delivered">Delivered:&#160;</string>
+    <string name="seen">Seen:&#160;</string>
     <string name="msgStatus">Message status</string>
 
     <!--UserAdapter-->
