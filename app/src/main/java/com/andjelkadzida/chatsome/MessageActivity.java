@@ -126,7 +126,7 @@ public class MessageActivity extends AppCompatActivity
                 //Ako korisnik nije uneo poruku, a klikne na dugme za slanje poruke, dobija obavestenje da je potrebno da unese poruku
                 else
                 {
-                    Toast.makeText(MessageActivity.this, "Enter your message...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MessageActivity.this, getResources().getString(R.string.yourMsg), Toast.LENGTH_SHORT).show();
                 }
                 messageText.setText("");
             }

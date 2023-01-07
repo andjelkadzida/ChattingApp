@@ -103,15 +103,15 @@ public class MainActivity extends AppCompatActivity
 
                 if(unread == 0)
                 {
-                    viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+                    viewPagerAdapter.addFragment(new ChatsFragment(), getResources().getString(R.string.chats));
                 }
                 else
                 {
-                    viewPagerAdapter.addFragment(new ChatsFragment(), "("+unread+") Chats");
+                    viewPagerAdapter.addFragment(new ChatsFragment(), "("+unread+") " + getResources().getString(R.string.chats));
                 }
 
-                viewPagerAdapter.addFragment(new UserFragment(), "Users");
-                viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+                viewPagerAdapter.addFragment(new UserFragment(), getResources().getString(R.string.users));
+                viewPagerAdapter.addFragment(new ProfileFragment(), getResources().getString(R.string.profile));
                 viewPager.setAdapter(viewPagerAdapter);
 
                 tabLayout.setupWithViewPager(viewPager);

@@ -75,11 +75,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         {
             if(chat.isStatusSeen())
             {
-                holder.seenViewer.setText("Seen: " + chat.getDateTimeSeen());
+                holder.seenViewer.setText(R.string.seen + chat.getDateTimeSeen());
             }
             else
             {
-                holder.seenViewer.setText("Delivered: " + chat.getDateTimeSent());
+                holder.seenViewer.setText(R.string.delivered + chat.getDateTimeSent());
             }
         }
         else
@@ -94,9 +94,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext(), R.style.AlertDialogCustom);
 
-                alertDialog.setTitle("Message status");
+                alertDialog.setTitle(R.string.msgStatus);
                 alertDialog.setIcon(R.drawable.ic_chat);
-                alertDialog.setMessage(chat.getMessage() + "\nDelivered: " + chat.getDateTimeSent() + "\nSeen: " + chat.getDateTimeSeen());
+                alertDialog.setMessage(chat.getMessage() + "\n" + context.getResources().getString(R.string.delivered) + chat.getDateTimeSent() + "\n" + context.getResources().getString(R.string.seen) + chat.getDateTimeSeen());
                 alertDialog.setCancelable(false);
                 alertDialog.setPositiveButton(R.string.btnOk, new DialogInterface.OnClickListener()
                 {
