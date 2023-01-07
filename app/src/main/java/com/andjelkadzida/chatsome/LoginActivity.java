@@ -50,14 +50,14 @@ public class LoginActivity extends AppCompatActivity
 
                 if(TextUtils.isEmpty(email) || TextUtils.isEmpty(pass))
                 {
-                    Toast.makeText(LoginActivity.this, "All fields are mandatory", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.mandatoryFields), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     //Progres dijalog
-                    progressDialog.setTitle("Login");
+                    progressDialog.setTitle(getResources().getString(R.string.login));
                     progressDialog.setIcon(R.drawable.ic_login);
-                    progressDialog.setMessage("Logging in progress... \nPlease wait...");
+                    progressDialog.setMessage(getResources().getString(R.string.loginInProgress));
                     progressDialog.setCanceledOnTouchOutside(true);
                     progressDialog.show();
 
@@ -71,11 +71,11 @@ public class LoginActivity extends AppCompatActivity
                             startActivity(intent);
                             finish();
 
-                            Toast.makeText(LoginActivity.this,"User " + firebaseAuth.getCurrentUser().getEmail() + " logged in successfully!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.user) + firebaseAuth.getCurrentUser().getEmail() + getResources().getString(R.string.successfulLogin), Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-                            Toast.makeText(LoginActivity.this, "Invalid e-mail or password!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.invalidMailOrPass), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     });

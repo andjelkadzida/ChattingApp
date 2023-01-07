@@ -54,11 +54,11 @@ public class RegistrationActivity extends AppCompatActivity
 
         if(TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password))
         {
-            Toast.makeText(RegistrationActivity.this, "All fields are mandatory!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistrationActivity.this, getResources().getString(R.string.mandatoryFields), Toast.LENGTH_SHORT).show();
         }
         else if(passwordText.getText().length()<8)
         {
-            Toast.makeText(RegistrationActivity.this, "Password must contain at least 8 characters!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistrationActivity.this, getResources().getString(R.string.passwordRegistration) + "!", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -77,9 +77,9 @@ public class RegistrationActivity extends AppCompatActivity
                     {
                         if(task.isSuccessful())
                         {
-                            progressDialog.setTitle("Registration");
+                            progressDialog.setTitle(getResources().getString(R.string.register));
                             progressDialog.setIcon(R.drawable.ic_key);
-                            progressDialog.setMessage("Registration in progress... Please wait...");
+                            progressDialog.setMessage(getResources().getString(R.string.registrationProcess));
                             progressDialog.setCanceledOnTouchOutside(true);
                             progressDialog.show();
 
@@ -112,7 +112,7 @@ public class RegistrationActivity extends AppCompatActivity
                         }
                         else
                         {
-                            Toast.makeText(RegistrationActivity.this, "Invalid e-mail or password!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrationActivity.this, getResources().getString(R.string.invalidMailOrPass), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     }

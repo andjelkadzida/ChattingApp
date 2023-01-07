@@ -128,8 +128,8 @@ public class ProfileFragment extends Fragment
     private void uploadPicture()
     {
         final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.CustomDialog);
-        progressDialog.setTitle("Picture upload");
-        progressDialog.setMessage("Your picture is uploading... Please wait...");
+        progressDialog.setTitle(getResources().getString(R.string.pictureUpload));
+        progressDialog.setMessage(getResources().getString(R.string.pictureUploadMsg));
         progressDialog.setIcon(R.drawable.ic_upload);
         progressDialog.show();
 
@@ -170,7 +170,7 @@ public class ProfileFragment extends Fragment
                     }
                     else
                     {
-                        Toast.makeText(getContext(), "Picture upload failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getResources().getString(R.string.pictureUploadFail), Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 }
@@ -186,7 +186,7 @@ public class ProfileFragment extends Fragment
         }
         else
         {
-            Toast.makeText(getContext(), "Please select picture!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.uploadPicture), Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         }
     }
@@ -200,7 +200,7 @@ public class ProfileFragment extends Fragment
             pictureUri = data.getData();
             if(uploadPicture != null && uploadPicture.isInProgress())
             {
-                Toast.makeText(getContext(), "Your picture is uploading...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.uploadInProgress), Toast.LENGTH_SHORT).show();
             }
             else
             {

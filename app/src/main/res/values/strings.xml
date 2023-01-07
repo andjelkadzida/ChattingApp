@@ -18,7 +18,8 @@
     <string name="noAcc">Do not have an account? Register now</string>
     <string name="anotherLoginText">or login using</string>
     <string name="phoneLogin">Phone</string>
-   <string name="passwordRegistration">Password must contain at least 8 characters</string>
+    <string name="passwordRegistration">Password must contain at least 8 characters</string>
+    <string name="registrationProcess">Registration in progress... Please wait...</string>
 
 
     <string name="loginPhoneView">Login using phone</string>
@@ -39,10 +40,55 @@
     <string name="sendIco">Send icon</string>
     <string name="profilePicture">Profile picture</string>
     <string name="btnOk">OK</string>
+    <string name="yourMsg">Enter your message...</string>
 
     <!--PhoneLoginActivity-->
     <string name="btnVerifyText">Verify</string>
     <string name="btnSendCodeText">Send verification code</string>
     <string name="phoneNumberHint">Type your phone number</string>
     <string name="verificationCodeHint">Insert verification code you received</string>
+    <string name="enterNumber">Please enter phone number including country number!</string>
+    <string name="phoneVerify">Phone verification</string>
+    <string name="verificationInProgess">Please wait, phone verification in progress...</string>
+    <string name="insertVerificationCode">Please insert verification code you received!</string>
+    <string name="codeVerification">Code verification</string>
+    <string name="codeVerificationInProgress">Please wait, code verification in progress...</string>
+    <string name="phoneNumber">Phone number&#160;</string>
+    <string name="notValid">&#160;is not valid!</string>
+    <string name="verificationSent">Verification code sent on phone number: </string>
+    <string name="loginFailed"> login failed!</string>
+    <string name="successLogin">Logged in successfully!</string>
+    <string name="phoneVeficationFailed">Phone number verification failed!</string>
+
+    <!--LoginActivity-->
+    <string name="loginInProgress">Logging in progress...\nPlease wait...</string>
+    <string name="mandatoryFields">All fields are mandatory</string>
+    <string name="invalidMailOrPass">Invalid e-mail or password!</string>
+    <string name="user">User&#160;</string>
+    <string name="successfulLogin">&#160;logged in successfully!</string>
+
+    <!--MainActivity-->
+    <string name="users">Users</string>
+    <string name="chats">Chats</string>
+    <string name="profile">Profile</string>
+
+    <!--ResetPasswordActivity-->
+    <string name="emailRequired">E-mail field is mandatory!</string>
+    <string name="checkInbox">Please check your inbox!</string>
+
+    <!--MessageAdapter-->
+    <string name="delivered">Delivered:&#160;</string>
+    <string name="seen">Seen:&#160;</string>
+    <string name="msgStatus">Message status</string>
+
+    <!--UserAdapter-->
+    <string name="noMessage">No message</string>
+
+    <!--ProfileFragment-->
+    <string name="pictureUpload">Picture upload</string>
+    <string name="pictureUploadMsg">Your picture is uploading... Please wait...</string>
+    <string name="pictureUploadFail">Picture upload failed!</string>
+    <string name="uploadPicture">Please select picture!</string>
+    <string name="uploadInProgress">Your picture is uploading...</string>
+
 </resources>

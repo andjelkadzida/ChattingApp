@@ -63,13 +63,13 @@ public class PhoneLoginActivity extends AppCompatActivity
 
             if(TextUtils.isEmpty(phoneNumber))
             {
-                Toast.makeText(PhoneLoginActivity.this,"Please enter phone number including country number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this,getResources().getString(R.string.enterNumber), Toast.LENGTH_SHORT).show();
             }
             else
             {
-                progressDialog.setTitle("Phone verification");
+                progressDialog.setTitle(getResources().getString(R.string.phoneVerify));
                 progressDialog.setIcon(R.drawable.ic_login);
-                progressDialog.setMessage("Please wait, phone verification in progress...");
+                progressDialog.setMessage(getResources().getString(R.string.verificationInProgess));
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
 
@@ -93,12 +93,12 @@ public class PhoneLoginActivity extends AppCompatActivity
 
             if(TextUtils.isEmpty(verificationCode))
             {
-                Toast.makeText(PhoneLoginActivity.this, "Please insert verification code you received", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, getResources().getString(R.string.insertVerificationCode), Toast.LENGTH_SHORT).show();
             }
             else
             {
-                progressDialog.setTitle("Code verification");
-                progressDialog.setMessage("Please wait, code verification in progress...");
+                progressDialog.setTitle(getResources().getString(R.string.codeVerification));
+                progressDialog.setMessage(getResources().getString(R.string.codeVerificationInProgress));
                 progressDialog.setCanceledOnTouchOutside(false);
 
                 PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, verificationCode);
@@ -117,7 +117,7 @@ public class PhoneLoginActivity extends AppCompatActivity
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e)
             {
-                Toast.makeText(PhoneLoginActivity.this, "Phone number " + phoneNumberEdit.getText().toString() + " is not valid!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, getResources().getString(R.string.phoneNumber) + phoneNumberEdit.getText().toString() + getResources().getString(R.string.notValid), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 phoneNumberEdit.setText("");
                 btnSendCode.setVisibility(View.VISIBLE);
@@ -132,7 +132,7 @@ public class PhoneLoginActivity extends AppCompatActivity
                 verificationId = verifiyId;
                 progressDialog.dismiss();
 
-                Toast.makeText(PhoneLoginActivity.this, "Verification code sent on phone number: " + phoneNumberEdit.getText().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, getResources().getString(R.string.verificationSent) + phoneNumberEdit.getText().toString(), Toast.LENGTH_SHORT).show();
 
                 btnSendCode.setVisibility(View.INVISIBLE);
                 phoneNumberEdit.setVisibility(View.INVISIBLE);
@@ -189,14 +189,14 @@ public class PhoneLoginActivity extends AppCompatActivity
                                    }
                                    else
                                    {
-                                       Toast.makeText(PhoneLoginActivity.this, "User " + username + " login failed!", Toast.LENGTH_LONG).show();
+                                       Toast.makeText(PhoneLoginActivity.this, getResources().getString(R.string.user) + username + getResources().getString(R.string.loginFailed), Toast.LENGTH_LONG).show();
                                    }
                                }
                            });
                        }
                        else
                        {
-                           Toast.makeText(PhoneLoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(PhoneLoginActivity.this, getResources().getString(R.string.successLogin), Toast.LENGTH_SHORT).show();
                            Intent intent = new Intent(PhoneLoginActivity.this, MainActivity.class);
                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                            startActivity(intent);
@@ -207,7 +207,7 @@ public class PhoneLoginActivity extends AppCompatActivity
             }
             else
             {
-                Toast.makeText(PhoneLoginActivity.this, "Phone number verification failed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, getResources().getString(R.string.phoneVeficationFailed), Toast.LENGTH_SHORT).show();
             }
         });
     }

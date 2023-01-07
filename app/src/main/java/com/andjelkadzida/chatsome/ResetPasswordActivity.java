@@ -42,7 +42,7 @@ public class ResetPasswordActivity extends AppCompatActivity
 
                 if(TextUtils.isEmpty(email))
                 {
-                    Toast.makeText(ResetPasswordActivity.this, "E-mail field is mandatory!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResetPasswordActivity.this, getResources().getString(R.string.emailRequired), Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -53,7 +53,7 @@ public class ResetPasswordActivity extends AppCompatActivity
                         {
                             if(task.isSuccessful())
                             {
-                                Toast.makeText(ResetPasswordActivity.this, "Please check your inbox", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ResetPasswordActivity.this, getResources().getString(R.string.checkInbox), Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(ResetPasswordActivity.this, LoginActivity.class));
                             }
                         }
